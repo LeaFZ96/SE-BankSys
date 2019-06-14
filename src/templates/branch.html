@@ -12,39 +12,34 @@
     <base href="./">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
-    <meta name="author" content="Łukasz Holeczek">
-    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
     <title>银行业务管理系统</title>
     <!-- Icons-->
     <!-- Main styles for this application-->
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        dataLayer.push(arguments);
+    function tableFilter(){
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("prependedInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("bank-table");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }       
       }
-      gtag('js', new Date());
-      // Shared ID
-      gtag('config', 'UA-118965717-3');
-      // Bootstrap ID
-      gtag('config', 'UA-118965717-5');
+    }
     </script>
   </head>
   <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
     <header class="app-header navbar">
-      <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" data-toggle="aside-menu-lg-show">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <button class="navbar-toggler aside-menu-toggler d-lg-none" type="button" data-toggle="aside-menu-show">
-        <span class="navbar-toggler-icon"></span>
-      </button>
     </header>
     <div class="app-body">
       <div class="sidebar">
@@ -56,7 +51,7 @@
                   </a>
               <li class="nav-title">统计</li>
               <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="statistics.html">
                   <i class="nav-icon icon-speedometer"></i> 业务统计
                   <span class="badge badge-primary">NEW</span>
                 </a>
@@ -96,7 +91,7 @@
                     <i class="fa fa-search"></i>
                   </span>
                 </div>
-                <input class="form-control" id="prependedInput" size="16" type="text" placeholder="搜索支行">
+                <input onkeyup="tableFilter()" class="form-control" id="prependedInput" size="16" type="text" placeholder="搜索支行">
                 <span class="input-group-append">
                   <button class="btn btn-info" type="button">搜索</button>
                 </span>
@@ -105,23 +100,15 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-sm-5">
+                      <div class="small text-muted">2019 6</div>
                     <h4 class="card-title mb-0">支行管理</h4>
-                    <div class="small text-muted">2019 6</div>
                   </div>
-                  <!-- /.col-->
-                  <div class="col-sm-7 d-none d-md-block">
-                    <button class="btn btn-primary float-right" type="button" href="index.html">
-                      <i class="icon-cloud-download"></i>
-                    </button>
-
-                  </div>
-                  <!-- /.col-->
                 </div>
                 <!-- /.row-->
                 <div>
                       <!--Here comes our table!-->
                       <div>
-                        <table>
+                        <table id="bank-table">
                             <tr>
                             {% for i in labels %}
                                 <th> {{ i }} </th>
@@ -183,6 +170,9 @@
         <a href="https://coreui.io">CoreUI</a>
       </div>
     </footer>
+<<<<<<< HEAD
     <!-- CoreUI and necessary plugins-->
+=======
+>>>>>>> 3572a70c454baea00e01fe014a32bbc85e807ac7
   </body>
 </html>

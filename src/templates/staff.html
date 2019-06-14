@@ -12,32 +12,31 @@
     <base href="./">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="description" content="CoreUI - Open Source Bootstrap Admin Template">
-    <meta name="author" content="Łukasz Holeczek">
-    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
     <title>银行业务管理系统</title>
-    <!-- Icons-->
-    <link href="node_modules/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
-    <link href="node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-    <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="node_modules/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
     <!-- Main styles for this application-->
     <link href="../static/style.css" rel="stylesheet">
     <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      // Shared ID
-      gtag('config', 'UA-118965717-3');
-      // Bootstrap ID
-      gtag('config', 'UA-118965717-5');
+      function tableFilter(){
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("prependedInput");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("bank-table");
+          tr = table.getElementsByTagName("tr");
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }       
+          }
+        }
     </script>
   </head>
   <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
@@ -62,7 +61,7 @@
                   </a>
               <li class="nav-title">统计</li>
               <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="statistics.html">
                   <i class="nav-icon icon-speedometer"></i> 业务统计
                   <span class="badge badge-primary">NEW</span>
                 </a>
@@ -115,19 +114,12 @@
                     <div class="small text-muted">2019 6</div>
                   </div>
                   <!-- /.col-->
-                  <div class="col-sm-7 d-none d-md-block">
-                    <button class="btn btn-primary float-right" type="button" href="index.html">
-                      <i class="icon-cloud-download"></i>
-                    </button>
-
-                  </div>
-                  <!-- /.col-->
                 </div>
                 <!-- /.row-->
                 <div>
                       <!--Here comes our table!-->
                       <div>
-                        <table>
+                        <table id="bank-table">
                             <tr>
                             <th>员工id</th>
                             <th>部门号</th>
@@ -135,6 +127,7 @@
                             <th>员工电话</th>
                             <th>员工地址</th>
                             <th>员工职位</th>
+                            <th></th>
                             </tr>
 
                             <tr>
@@ -145,19 +138,8 @@
                             <td>合肥</td>
                             <td>0</td>
                             <td>
-
-                            
-                                <label class="btn btn-info">
-                                        <input id="option3" type="radio" name="options" autocomplete="off"> 编辑
-                                </label>
-                                <label class="btn btn-info">
-                                        <input id="option3" type="radio" name="options" autocomplete="off"> 更新
-                                </label>
-                                <label class="btn btn-info">
-                                        <input id="option3" type="radio" name="options" autocomplete="off"> 删除
-                                </label>
-                            
-                            
+                                <label class="btn btn-success">更新</label>
+                                <label class="btn bg-danger">删除</label>
                             </tr>
                         </table>
                     </div>
@@ -184,31 +166,7 @@
             </a>
           </li>
         </ul>
-        <!-- Tab panes-->
-        
-
       </aside>
     </div>
-    <footer class="app-footer">
-      <div>
-        <a href="https://coreui.io">CoreUI</a>
-        <span>&copy; 2018 creativeLabs.</span>
-      </div>
-      <div class="ml-auto">
-        <span>Powered by</span>
-        <a href="https://coreui.io">CoreUI</a>
-      </div>
-    </footer>
-    <!-- CoreUI and necessary plugins-->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="node_modules/pace-progress/pace.min.js"></script>
-    <script src="node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
-    <script src="node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
-    <!-- Plugins and scripts required by this view-->
-    <script src="node_modules/chart.js/dist/Chart.min.js"></script>
-    <script src="node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
-    <script src="js/main.js"></script>
   </body>
 </html>
