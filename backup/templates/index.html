@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v2.1.12
+* @link https://coreui.io
+* Copyright (c) 2018 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+
+<html lang="en">
+  <head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>银行业务管理系统</title>
+    <!-- Main styles for this application-->
+    <link href="../static/style.css" rel="stylesheet">
+    <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics-->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      // Shared ID
+      gtag('config', 'UA-118965717-3');
+      // Bootstrap ID
+      gtag('config', 'UA-118965717-5');
+    </script>
+  </head>
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+
+    </header>
+    <div class="app-body">
+      <div class="sidebar">
+        <nav class="sidebar-nav">
+          <ul class="nav">
+              <li class="nav-title">银行</li>
+              <a class="nav-link" href="index.html">
+                  <i class="nav-icon icon-speedometer"></i> 首页
+                </a>
+            <li class="nav-title">统计</li>
+            <li class="nav-item">
+              <a class="nav-link" href="statistics.html">
+                <i class="nav-icon icon-speedometer"></i> 业务统计
+                <span class="badge badge-primary">NEW</span>
+              </a>
+            </li>
+            <li class="nav-title">管理</li>
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="branch.html">
+                <i class="nav-icon icon-puzzle"></i> 支行管理</a>
+            </li>
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="staff.html">
+                <i class="nav-icon icon-cursor"></i> 员工管理</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="client.html">
+                <i class="nav-icon icon-pie-chart"></i> 客户管理</a>
+            </li>
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="account.html">
+                <i class="nav-icon icon-star"></i> 账户管理</a>
+             
+            </li>
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="debt.html">
+                <i class="nav-icon icon-bell"></i> 贷款管理</a>
+            </li>
+            
+          </ul>
+        </nav>
+        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+      </div>
+      <main class="main">
+        <div class="container-fluid">
+          <div class="animated fadeIn">
+            <div class="row">
+              <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-primary">
+                  <div class="card-body pb-0">
+                    <div class="btn-group float-right">
+                      <button class="btn btn-transparent dropdown-toggle p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="icon-settings"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                    </div>
+                    <div class="text-value"></div>
+                  </div>
+                  <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+                    <canvas class="chart" id="card-chart1" height="70"></canvas>
+                  </div>
+                </div>
+              </div>
+              <!-- /.col-->
+              <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-info">
+                  <div class="card-body pb-0">
+                    <button class="btn btn-transparent p-0 float-right" type="button">
+                      <i class="icon-location-pin"></i>
+                    </button>
+                    <div class="text-value"></div>
+                  </div>
+                  <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+                    <canvas class="chart" id="card-chart2" height="70"></canvas>
+                  </div>
+                </div>
+              </div>
+              <!-- /.col-->
+              <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-warning">
+                  <div class="card-body pb-0">
+                    <div class="btn-group float-right">
+                      <button class="btn btn-transparent dropdown-toggle p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="icon-settings"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                    </div>
+                    <div class="text-value"></div>
+                    <div></div>
+                  </div>
+                  <div class="chart-wrapper mt-3" style="height:70px;">
+                    <canvas class="chart" id="card-chart3" height="70"></canvas>
+                  </div>
+                </div>
+              </div>
+              <!-- /.col-->
+              <div class="col-sm-6 col-lg-3">
+                <div class="card text-white bg-danger">
+                  <div class="card-body pb-0">
+                    <div class="btn-group float-right">
+                      <button class="btn btn-transparent dropdown-toggle p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="icon-settings"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                      </div>
+                    </div>
+                    <div class="text-value"></div>
+                    <div></div>
+                  </div>
+                  <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+                    <canvas class="chart" id="card-chart4" height="70"></canvas>
+                  </div>
+                </div>
+              </div>
+              <!-- /.col-->
+            </div>
+            <!-- /.row-->
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <div class="clearfix">
+                        <h1 class="float-left display-3 mr-4">欢迎</h1>
+                        <h4 class="pt-3">使用银行业务系统</h4>
+                        <p class="text-muted">by LeafZ, E-Tsai &</p>
+                      </div>
+                  </div>
+                </div>
+                <div class="chart-wrapper" style="height:300px;margin-top:40px;">
+                  <canvas class="chart" id="main-chart" height="300"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>
