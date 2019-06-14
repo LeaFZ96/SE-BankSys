@@ -13,12 +13,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>银行业务管理系统</title>
+    <!-- Icons-->
     <!-- Main styles for this application-->
-    <link href="../static/style.css" rel="stylesheet">
-    <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics-->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
-    <!--<script src="../static/table.js"></script>-->
     <script>
     function tableFilter(){
       var input, filter, table, tr, td, i, txtValue;
@@ -112,33 +110,26 @@
                       <div>
                         <table id="bank-table">
                             <tr>
-                            <th>支行id</th>
-                            <th>支行名</th>
-                            <th>支行资产</th>
-                            <th>所在城市</th>
-                            <th></th>
+                            {% for i in labels %}
+                                <th> {{ i }} </th>
+                            {% endfor %}
                             </tr>
 
+                            {% for i in content %}
                             <tr>
-                            <td>b001</td>
-                            <td>望江路支行</td>
-                            <td>1000</td>
-                            <td>合肥</td>
-                            <td>
-                                <label class="btn btn-success">更新</label>
-                                <label class="btn bg-danger">删除</label>
-                            </td>
-                            </tr>
-                            <tr>
-                                <td>b002</td>
-                                <td>东至路支行</td>
-                                <td>10024</td>
-                                <td>合肥</td>
+                                <td> {{ i.name }} </td>
+                                <td> {{ i.assets }} </td>
+                                <td> {{ i.city }} </td>
                                 <td>
-                                    <label class="btn btn-success">更新</label>
-                                    <label class="btn bg-danger">删除</label>
+                                <label class="btn btn-info">
+                                        <input id="option3" type="radio" name="options" autocomplete="off"> 更新
+                                </label>
+                                <label class="btn btn-info">
+                                        <input id="option3" type="radio" name="options" autocomplete="off"> 删除
+                                </label>
                                 </td>
                             </tr>
+                            {% endfor %}
                         </table>
                     </div>
                 </div>
@@ -179,5 +170,9 @@
         <a href="https://coreui.io">CoreUI</a>
       </div>
     </footer>
+<<<<<<< HEAD
+    <!-- CoreUI and necessary plugins-->
+=======
+>>>>>>> 3572a70c454baea00e01fe014a32bbc85e807ac7
   </body>
 </html>
