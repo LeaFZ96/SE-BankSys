@@ -1,0 +1,29 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>Add User Form</h1>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+        <tr>
+            {% for i in labels %}
+                <td>{{ i }}</td>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for i in content %}
+            <tr>
+                <td>{{ i.id }}</td>
+                <td>{{ i.username }}</td>
+                <td>{{ i.password }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html> 
