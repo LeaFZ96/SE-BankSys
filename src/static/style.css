@@ -1531,6 +1531,30 @@ pre code {
   color: #23282c;
 }
 
+#bank-table {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  text-align:center; 
+  width: 100%;
+}
+
+#bank-table td, #bank-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#bank-table tr:nth-child(even){background-color: #f2f2f2;}
+
+#bank-table tr:hover {background-color: #ddd;}
+
+#bank-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align:center; 
+  background-color: #20a8d8;
+  color: white;
+}
+
 .table th{
   color: #c8ced3;
 }
