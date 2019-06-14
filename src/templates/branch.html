@@ -18,15 +18,9 @@
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
     <title>银行业务管理系统</title>
     <!-- Icons-->
-    <link href="node_modules/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
-    <link href="node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-    <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="node_modules/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
     <!-- Main styles for this application-->
-    <link href="../static/style.css" rel="stylesheet">
-    <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics-->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
 
@@ -129,32 +123,26 @@
                       <div>
                         <table>
                             <tr>
-                            <th>支行id</th>
-                            <th>支行名</th>
-                            <th>支行资产</th>
-                            <th>所在城市</th>
+                            {% for i in labels %}
+                                <th> {{ i }} </th>
+                            {% endfor %}
                             </tr>
 
+                            {% for i in content %}
                             <tr>
-                            <td>b001</td>
-                            <td>望江路支行</td>
-                            <td>1000</td>
-                            <td>合肥</td>
-                            <td>
-
-                            
-                                <label class="btn btn-info">
-                                        <input id="option3" type="radio" name="options" autocomplete="off"> 编辑
-                                </label>
+                                <td> {{ i.name }} </td>
+                                <td> {{ i.assets }} </td>
+                                <td> {{ i.city }} </td>
+                                <td>
                                 <label class="btn btn-info">
                                         <input id="option3" type="radio" name="options" autocomplete="off"> 更新
                                 </label>
                                 <label class="btn btn-info">
                                         <input id="option3" type="radio" name="options" autocomplete="off"> 删除
                                 </label>
-                            
-                            
+                                </td>
                             </tr>
+                            {% endfor %}
                         </table>
                     </div>
                 </div>
@@ -196,15 +184,5 @@
       </div>
     </footer>
     <!-- CoreUI and necessary plugins-->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="node_modules/pace-progress/pace.min.js"></script>
-    <script src="node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
-    <script src="node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
-    <!-- Plugins and scripts required by this view-->
-    <script src="node_modules/chart.js/dist/Chart.min.js"></script>
-    <script src="node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
-    <script src="js/main.js"></script>
   </body>
 </html>
