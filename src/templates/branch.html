@@ -27,17 +27,26 @@
     <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+    <!--<script src="../static/table.js"></script>-->
     <script>
-      window.dataLayer = window.dataLayer || [];
-
-      function gtag() {
-        dataLayer.push(arguments);
+    function tableFilter(){
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("prependedInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("bank-table");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }       
       }
-      gtag('js', new Date());
-      // Shared ID
-      gtag('config', 'UA-118965717-3');
-      // Bootstrap ID
-      gtag('config', 'UA-118965717-5');
+    }
     </script>
   </head>
   <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
@@ -93,7 +102,7 @@
                     <i class="fa fa-search"></i>
                   </span>
                 </div>
-                <input class="form-control" id="prependedInput" size="16" type="text" placeholder="搜索支行">
+                <input onkeyup="tableFilter()" class="form-control" id="prependedInput" size="16" type="text" placeholder="搜索支行">
                 <span class="input-group-append">
                   <button class="btn btn-info" type="button">搜索</button>
                 </span>
@@ -130,9 +139,9 @@
                             </td>
                             </tr>
                             <tr>
-                                <td>b001</td>
-                                <td>望江路支行</td>
-                                <td>1000</td>
+                                <td>b002</td>
+                                <td>东至路支行</td>
+                                <td>10024</td>
                                 <td>合肥</td>
                                 <td>
                                     <label class="btn btn-success">更新</label>
