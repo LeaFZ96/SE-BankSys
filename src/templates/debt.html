@@ -13,11 +13,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>银行业务管理系统</title>
-    <!-- Main styles for this application-->
-    <link href="../static/style.css" rel="stylesheet">
-    <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
-    <!-- Global site tag (gtag.js) - Google Analytics-->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
     <script>
       function tableFilter(){
           var input, filter, table, tr, td, i, txtValue;
@@ -47,35 +43,35 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-title">银行</li>
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index">
                     <i class="nav-icon icon-speedometer"></i> 首页
                   </a>
               <li class="nav-title">统计</li>
               <li class="nav-item">
-                <a class="nav-link" href="statistics.html">
+                <a class="nav-link" href="statistics">
                   <i class="nav-icon icon-speedometer"></i> 业务统计
                   <span class="badge badge-primary">NEW</span>
                 </a>
               </li>
               <li class="nav-title">管理</li>
             <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="branch.html">
+                <a class="nav-link nav-dropdown-toggle" href="branch">
                   <i class="nav-icon icon-puzzle"></i> 支行管理</a>
               </li>
               <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="staff.html">
+                <a class="nav-link nav-dropdown-toggle" href="staff">
                   <i class="nav-icon icon-cursor"></i> 员工管理</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="client.html">
+                <a class="nav-link" href="client">
                   <i class="nav-icon icon-pie-chart"></i> 客户管理</a>
               </li>
               <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="account.html">
+                <a class="nav-link nav-dropdown-toggle" href="account">
                   <i class="nav-icon icon-star"></i> 账户管理</a>
                   
               <li class="nav-item nav-dropdown">
-                <a class="nav-link nav-dropdown-toggle" href="debt.html">
+                <a class="nav-link nav-dropdown-toggle" href="debt">
                   <i class="nav-icon icon-bell"></i> 贷款管理</a>
               </li>
         </nav>
@@ -110,24 +106,24 @@
                       <div>
                         <table id = "bank-table">
                             <tr>
-                            <th>贷款账户</th>
-                            <th>支行名</th>
-                            <th>贷款金额</th>
-                            <th>建立日期</th>
-                            <th>状态</th>
-                            <th></th>
+                            {% for i in labels %}
+                              <th> {{ i }} </th>
+                            {% endfor %}
                             </tr>
 
-                            <tr>
-                            <td>l23981</td>
-                            <td>望江路支行</td>
-                            <td>1000</td>
-                            <td>2019/1/23</td>
-                            <td>1</td>
-                            <td>
-                                <label class="btn btn-success">更新</label>
-                                <label class="btn bg-danger">删除</label>
-                            </tr>
+                            {% for i in content %}
+                                <tr>
+                                <td> {{ i.loanNum }} </td>
+                                <td> {{ i.branchName }} </td>
+                                <td> {{ i.loanAmount }} </td>
+                                <td> {{ i.status }} </td>
+                                <td> {{ i.createdDate }} </td>
+                                <td>
+                                    <label class="btn btn-success">更新</label>
+                                    <label class="btn bg-danger">删除</label>
+                                </td>
+                                </tr>
+                              {% endfor %}
                         </table>
                     </div>
                 </div>

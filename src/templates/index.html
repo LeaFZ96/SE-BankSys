@@ -14,8 +14,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>银行业务管理系统</title>
     <!-- Main styles for this application-->
-    <link href="../static/style.css" rel="stylesheet">
-    <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
+    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -39,36 +38,36 @@
         <nav class="sidebar-nav">
           <ul class="nav">
               <li class="nav-title">银行</li>
-              <a class="nav-link" href="index.html">
+              <a class="nav-link" href="index">
                   <i class="nav-icon icon-speedometer"></i> 首页
                 </a>
             <li class="nav-title">统计</li>
             <li class="nav-item">
-              <a class="nav-link" href="statistics.html">
+              <a class="nav-link" href="statistics">
                 <i class="nav-icon icon-speedometer"></i> 业务统计
                 <span class="badge badge-primary">NEW</span>
               </a>
             </li>
             <li class="nav-title">管理</li>
             <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="branch.html">
+              <a class="nav-link nav-dropdown-toggle" href="branch">
                 <i class="nav-icon icon-puzzle"></i> 支行管理</a>
             </li>
             <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="staff.html">
+              <a class="nav-link nav-dropdown-toggle" href="staff">
                 <i class="nav-icon icon-cursor"></i> 员工管理</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="client.html">
+              <a class="nav-link" href="client">
                 <i class="nav-icon icon-pie-chart"></i> 客户管理</a>
             </li>
             <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="account.html">
+              <a class="nav-link nav-dropdown-toggle" href="account">
                 <i class="nav-icon icon-star"></i> 账户管理</a>
              
             </li>
             <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="debt.html">
+              <a class="nav-link nav-dropdown-toggle" href="debt">
                 <i class="nav-icon icon-bell"></i> 贷款管理</a>
             </li>
             
