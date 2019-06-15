@@ -37,7 +37,55 @@
             }       
           }
         }
-    </script>
+        function openForm() {
+      document.getElementById("updateForm").style.display = "block";
+    }
+    
+    function closeForm() {
+      document.getElementById("updateForm").style.display = "none";
+    }  
+
+    function openwForm() {
+      document.getElementById("deleteWarning").style.display = "block";
+    }
+    
+    function closewForm() {
+      document.getElementById("deleteWarning").style.display = "none";
+    } 
+  </script>
+
+  <div class="form-popup" id="updateForm">
+    <form class="form-container">
+      <h1>更新表单</h1>
+  
+      <label for="email"><b>贷款账户</b></label>
+      <input type="text" placeholder="贷款账户" name="贷款账户" required>
+  
+      <label for="email"><b>支行名</b></label>
+      <input type="text" placeholder="支行名" name="支行名" required>
+  
+      <label for="email"><b>贷款金额</b></label>
+      <input type="text" placeholder="贷款金额" name="贷款金额" required>
+
+      <label for="email"><b>建立日期</b></label>
+      <input type="text" placeholder="建立日期" name="建立日期" required>
+
+      <label for="email"><b>状态</b></label>
+      <input type="text" placeholder="状态" name="状态" required>
+
+      <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
+      <button type="button" class="btn bg-danger" onclick="closeForm()">取消</button>
+    </form>
+  </div>
+
+  <div class="form-popup" id="deleteWarning">
+    <form class="form-container">
+      <h4>确认删除吗？</h4>
+  
+      <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
+      <button type="button" class="btn bg-danger" onclick="closewForm();">取消</button>
+    </form>
+  </div>
   </head>
   <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
     <header class="app-header navbar">
@@ -93,7 +141,7 @@
                 </div>
                 <input class="form-control" id="prependedInput" size="16" type="text" placeholder="搜索贷款">
                 <span class="input-group-append">
-                  <button class="btn btn-info" type="button">搜索</button>
+                  <button onkeyup="tableFilter()" class="btn btn-info" type="button">搜索</button>
                 </span>
             </div>
             <div class="card">
@@ -125,8 +173,8 @@
                             <td>2019/1/23</td>
                             <td>1</td>
                             <td>
-                                <label class="btn btn-success">更新</label>
-                                <label class="btn bg-danger">删除</label>
+                              <label class="btn btn-success" onclick="openForm()">更新</label>
+                              <label class="btn bg-danger" onclick="openwForm()">删除</label>
                             </tr>
                         </table>
                     </div>
