@@ -8,13 +8,16 @@ app.config.from_object(config)
 
 db.init_app(app)
 
+
 @app.route('/')
 def hello_world():
     return render_template('index.html')
 
+
 @app.route('/index')
 def index():
     return render_template('index.html')
+
 
 @app.route('/AddUser', methods=['GET', 'POST'])
 def add_user():
@@ -22,7 +25,7 @@ def add_user():
         return render_template('bio_form.html')
     else:
         username = request.form.get('username')
-        password = request.form.get('password') 
+        password = request.form.get('password')
         city = request.form.get('city')
 
     #newUser = Article(username=username, age=password)
@@ -32,27 +35,36 @@ def add_user():
 
     return render_template('bio_form.html')
 
+
 @app.route('/branch', methods=['GET', 'POST'])
 def branch():
     labels = ['支行名', '支行资产', '所在城市']
-    result = Branch.query.all()
-
+    result = db.session.query(Branch).all()
     if request.method == 'GET':
         return render_template('branch.html', labels=labels, content=result)
     else:
-        old_name = request.form.get('old_name')
-        branch_name = request.form.get('branch_name')
-        branch_asset = request.form.get('branch_asset')
-        branch_city = request.form.get('branch_city')
-        branch_result = db.session.query(Branch).filter_by(name=old_name).first()
-        branch_result.name = branch_name
-        branch_result.assets = branch_asset
-        branch_result.city = branch_city
-        db.session.commit()
+        if request.form.get('type') == 'update':
+            old_name = request.form.get('key')
+            branch_name = request.form.get('branch_name')
+            branch_asset = request.form.get('branch_asset')
+            branch_city = request.form.get('branch_city')
+            branch_result = db.session.query(
+                Branch).filter_by(name=old_name).first()
+            branch_result.name = branch_name
+            branch_result.assets = branch_asset
+            branch_result.city = branch_city
+            db.session.commit()
+            
+        elif request.form.get('type') == 'delete':
+            old_name = request.form.get('key')
+            branch_result = db.session.query(Branch).filter_by(name=old_name).first()
+            db.session.delete(branch_result)
+            db.session.commit()
 
-        result = Branch.query.all()
-
+    result = db.session.query(Branch).all()
+    
     return render_template('branch.html', labels=labels, content=result)
+
 
 @app.route('/client', methods=['GET', 'POST'])
 def client():
@@ -60,11 +72,13 @@ def client():
     result = Client.query.all()
     return render_template('client.html', labels=labels, content=result)
 
+
 @app.route('/staff', methods=['GET', 'POST'])
 def staff():
     labels = ['员工ID', '部门号', '员工姓名', '员工电话', '员工地址', '员工职位']
     result = Sta.query.all()
     return render_template('staff.html', labels=labels, content=result)
+
 
 @app.route('/account', methods=['GET', 'POST'])
 def account():
@@ -74,15 +88,18 @@ def account():
     content2 = CheckAccount.query.all()
     return render_template('account.html', labels1=labels1, labels2=labels2, content1=content1, content2=content2)
 
+
 @app.route('/debt', methods=['GET', 'POST'])
 def debt():
     labels = ['贷款号', '支行', '贷款金额', '贷款状态', '建立日期']
     content = Loan.query.all()
     return render_template('debt.html', labels=labels, content=content)
 
+
 @app.route('/statistics', methods=['GET', 'POST'])
 def statistics():
     return render_template('statistics.html')
+
 
 @app.route('/test', methods=['GET', 'POST'])
 def test_mod():
@@ -90,6 +107,7 @@ def test_mod():
     result = db.session.query(Branch).filter_by(name=old_name).first()
     stri = str(result.name)
     return stri
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
