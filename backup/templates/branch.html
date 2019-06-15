@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <!--
 * CoreUI - Free Bootstrap Admin Template
 * @version v2.1.12
@@ -57,6 +57,7 @@
   </script>
 </head>
 
+<<<<<<< HEAD
 <div class="form-popup" id="updateForm">
   <form class="form-container">
     <h1>更新表单</h1>
@@ -99,6 +100,125 @@
             <i class="nav-icon icon-speedometer"></i> 首页
           </a>
           <li class="nav-title">统计</li>
+=======
+  <div class="form-popup" id="deleteWarning">
+    <form class="form-container">
+      <h4>确认删除吗？</h4>
+  
+      <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
+      <button type="button" class="btn bg-danger" onclick="closewForm();">取消</button>
+    </form>
+  </div>
+  
+  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+    <header class="app-header navbar">
+    </header>
+    <div class="app-body">
+      <div class="sidebar">
+        <nav class="sidebar-nav">
+          <ul class="nav">
+            <li class="nav-title">银行</li>
+            <a class="nav-link" href="index.html">
+              <i class="nav-icon icon-speedometer"></i> 首页
+            </a>
+            <li class="nav-title">统计</li>
+            <li class="nav-item">
+              <a class="nav-link" href="statistics.html">
+                <i class="nav-icon icon-speedometer"></i> 业务统计
+                <span class="badge badge-primary">NEW</span>
+              </a>
+            </li>
+            <li class="nav-title">管理</li>
+            <a class="nav-link" href="branch.html">
+              <i class="nav-icon icon-pie-chart"></i> 支行管理</a>
+            </li>
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="staff.html">
+                <i class="nav-icon icon-cursor"></i> 员工管理</a>
+            </li>
+            <li class="nav-item">
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="client.html">
+                <i class="nav-icon icon-puzzle"></i> 客户管理</a>
+            </li>
+        
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="account.html">
+                <i class="nav-icon icon-star"></i> 账户管理</a>
+        
+            <li class="nav-item nav-dropdown">
+              <a class="nav-link nav-dropdown-toggle" href="debt.html">
+                <i class="nav-icon icon-bell"></i> 贷款管理</a>
+            </li>
+          </ul>
+        </nav>
+        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+        </div>
+      <main class="main">        
+        <div class="container-fluid">
+          <div class="animated fadeIn">
+            <div class="input-prepend input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">
+                    <i class="fa fa-search"></i>
+                  </span>
+                </div>
+                <input onkeyup="tableFilter()" class="form-control" id="prependedInput" size="16" type="text" placeholder="搜索支行">
+                <span class="input-group-append">
+                  <button class="btn btn-info" type="button">搜索</button>
+                </span>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-5">
+                      <div class="small text-muted">2019 6</div>
+                    <h4 class="card-title mb-0">支行管理</h4>
+                  </div>
+                </div>
+                <!-- /.row-->
+                <div>
+                      <!--Here comes our table!-->
+                      <div>
+                        <table id="bank-table">
+                            <tr>
+                            <th>支行id</th>
+                            <th>支行名</th>
+                            <th>支行资产</th>
+                            <th>所在城市</th>
+                            <th>操作</th>
+                            </tr>
+
+                            <tr id = "b0001">
+                            <td>b001</td>
+                            <td>望江路支行</td>
+                            <td>1000</td>
+                            <td>合肥</td>
+                            <td>
+                                <label class="btn btn-success" onclick="openForm()">更新</label>
+                                <label class="btn bg-danger" onclick="openForm()">删除</label>
+                            </td>
+                            </tr> 
+                            <tr>
+                                <td>b002</td>
+                                <td>东至路支行</td>
+                                <td>10024</td>
+                                <td>合肥</td>
+                                <td>
+                                  <label class="btn btn-success" onclick="openForm()">更新</label>
+                                  <label class="btn bg-danger" onclick="openwForm()">删除</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </main>
+      <aside class="aside-menu">
+        <ul class="nav nav-tabs" role="tablist">
+>>>>>>> 33bd1a7e18db77802923d2b16d26df3f38f3156e
           <li class="nav-item">
             <a class="nav-link" href="statistics.html">
               <i class="nav-icon icon-speedometer"></i> 业务统计
@@ -222,6 +342,7 @@
       <a href="https://coreui.io">CoreUI</a>
       <span>&copy; 2018 creativeLabs.</span>
     </div>
+<<<<<<< HEAD
     <div class="ml-auto">
       <span>Powered by</span>
       <a href="https://coreui.io">CoreUI</a>
@@ -229,4 +350,17 @@
   </footer>
 </body>
 
+=======
+    <footer class="app-footer">
+      <div>
+        <a href="https://coreui.io">CoreUI</a>
+        <span>&copy; 2018 creativeLabs.</span>
+      </div>
+      <div class="ml-auto">
+        <span>Powered by</span>
+        <a href="https://coreui.io">CoreUI</a>
+      </div>
+    </footer>
+  </body>
+>>>>>>> 33bd1a7e18db77802923d2b16d26df3f38f3156e
 </html>
