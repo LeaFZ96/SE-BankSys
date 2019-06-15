@@ -18,6 +18,7 @@
     <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+    <script src="jquery-3.4.0.min.js"></script>
     <!--<script src="../static/table.js"></script>-->
     <script>
     function tableFilter(){
@@ -38,8 +39,49 @@
         }       
       }
     }
-    function openForm() {
+    function openForm(key) {
+      
       document.getElementById("updateForm").style.display = "block";
+      
+      var table_row = document.getElementById(key);
+      update_form = document.getElementById("updateForm")
+     
+      //document.getElementById("num").innerHTML = "Paragraph changed!";
+      
+      //update_form.style.display = "block";
+      
+      
+      
+
+      //gets rows of table
+      //var rowLength = oTable.rows.length;
+
+      //loops through rows    
+      /*for (i = 0; i < rowLength; i++){
+
+        //gets cells of current row  
+        var oCells = oTable.rows.item(i).cells;
+
+        //gets amount of cells of current row
+        var cellLength = oCells.length;
+
+        //loops through each cell in current row
+        for(var j = 0; j < cellLength; j++){
+
+                // get your cell info here
+
+                var cellVal = oCells.item(j).innerHTML;
+                alert(cellVal);
+            }
+      }
+      
+      var update_form = document.getElementById("updateForm");
+      for(var i=0; i<table_row.length; i++)
+      {
+        table_row.innerHTML;
+      }*/
+      
+      
     }
     
     function closeForm() {
@@ -60,17 +102,20 @@
     <form class="form-container">
       <h1>更新表单</h1>
   
-      <label for="email"><b>支行号</b></label>
-      <input type="text" placeholder="支行号" name="支行号" required>
+      <label id="num"><b>支行号</b></label>
+      <input type="text" placeholder="支行号" name="num" required>
   
-      <label for="email"><b>支行名</b></label>
-      <input type="text" placeholder="支行名" name="支行名" required>
+      <label id="name"><b>支行名</b></label>
+      <input type="text" placeholder="支行名" name="name" required>
   
-      <label for="email"><b>支行资产</b></label>
-      <input type="text" placeholder="支行资产" name="支行资产" required>
+      <label id="estate"><b>支行资产</b></label>
+      <input type="text" placeholder="支行资产" name="estate" required>
 
-      <label for="email"><b>所在城市</b></label>
-      <input type="text" placeholder="所在城市" name="所在城市" required>
+      <label id="city"><b>所在城市</b></label>
+      <input type="text" placeholder="所在城市" name="city" required>
+
+      <input type="hidden" id="Id" name="Id">
+      <input type="hidden" id="type" name="type">
 
       <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
       <button type="button" class="btn bg-danger" onclick="closeForm()">取消</button>
@@ -151,6 +196,7 @@
                       <div class="small text-muted">2019 6</div>
                     <h4 class="card-title mb-0">支行管理</h4>
                   </div>
+                  <label text-align=right id = "update_b001" class="btn bg-warning" onclick="openForm(this.id)">添加</label>
                 </div>
                 <!-- /.row-->
                 <div>
@@ -171,7 +217,7 @@
                             <td>1000</td>
                             <td>合肥</td>
                             <td>
-                                <label class="btn btn-success" onclick="openForm()">更新</label>
+                                <label id = "update_b0001" class="btn btn-success" onclick="openForm(this.parentNode.parentNode.id)">更新</label>
                                 <label class="btn bg-danger" onclick="openForm()">删除</label>
                             </td>
                             </tr> 

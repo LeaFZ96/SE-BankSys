@@ -18,11 +18,50 @@
   <link href="../static/style.css" rel="stylesheet">
   <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
 
+  <!-- Resources -->
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
   <script>
-
+      am4core.ready(function() {
+      
+      // Themes begin
+      am4core.useTheme(am4themes_animated);
+      // Themes end
+      
+      // Create chart instance
+      var chart = am4core.create("chartdiv", am4charts.PieChart);
+      
+      // Add data
+      chart.data = [ {
+        "支行": "Lithuania",
+        "总金额": 501.9
+      }, {
+        "country": "Czech Republic",
+        "litres": 301.9
+      }, {
+        "country": "Ireland",
+        "litres": 201.1
+      }, {
+        "country": "Germany",
+        "litres": 165.8
+      }, {
+        "country": "Australia",
+        "litres": 139.9
+      }, {
+        "country": "Austria",
+        "litres": 128.3
+      }, {
+        "country": "UK",
+        "litres": 99
+      }, {
+        "country": "Belgium",
+        "litres": 60
+      }, {
+        "country": "The Netherlands",
+        "litres": 50
+      } ];
   </script>
-
-
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
@@ -74,7 +113,7 @@
             <div class="animated fadeIn">
               <div class="card-columns cols-2">
                 <div class="card">
-                  <div class="card-header">储蓄 年总结
+                  <div class="card-header">储蓄 存款
                     <div class="card-header-actions">
                       
                     </div>
@@ -86,7 +125,7 @@
                   </div>
                 </div>
                 <div class="card">
-                  <div class="card-header">贷款 年总结
+                  <div class="card-header">储蓄 取款
                     <div class="card-header-actions">
                       
                     </div>
@@ -98,7 +137,7 @@
                   </div>
                 </div>
                 <div class="card">
-                  <div class="card-header">储蓄 季度总结
+                  <div class="card-header">储蓄 总金额
                     <div class="card-header-actions">
                       
                     </div>
@@ -110,7 +149,7 @@
                   </div>
                 </div>
                 <div class="card">
-                  <div class="card-header">贷款 季度总结
+                  <div class="card-header">储蓄 用户数
                     <div class="card-header-actions">
                       
                     </div>
@@ -122,7 +161,7 @@
                   </div>
                 </div>
                 <div class="card">
-                  <div class="card-header">储蓄 月总结
+                  <div class="card-header">贷款 总金额
                     <div class="card-header-actions">
                       
                     </div>
@@ -134,7 +173,7 @@
                   </div>
                 </div>
                 <div class="card">
-                  <div class="card-header">贷款 月总结
+                  <div class="card-header">贷款 用户数
                     <div class="card-header-actions">
                     
                     </div>
