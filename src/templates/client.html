@@ -8,164 +8,214 @@
 -->
 
 <html lang="en">
-  <head>
-    <base href="./">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>银行业务管理系统</title>
-    <!-- Main styles for this application-->
-    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet">
-    <script>
-        function tableFilter(){
-          var input, filter, table, tr, td, i, txtValue;
-          input = document.getElementById("prependedInput");
-          filter = input.value.toUpperCase();
-          table = document.getElementById("bank-table");
-          tr = table.getElementsByTagName("tr");
-          for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }       
+
+<head>
+  <base href="./">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>银行业务管理系统</title>
+  <!-- Main styles for this application-->
+  <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet">
+  <script>
+    function tableFilter() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("prependedInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("bank-table");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
           }
         }
-    </script>
-  </head>
-  <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-    <header class="app-header navbar">
-    </header>
-    <div class="app-body">
-      <div class="sidebar">
-        <nav class="sidebar-nav">
-            <ul class="nav">
-                <li class="nav-title">银行</li>
-                <a class="nav-link" href="index">
-                    <i class="nav-icon icon-speedometer"></i> 首页
-                  </a>
-              <li class="nav-title">统计</li>
-              <li class="nav-item">
-                <a class="nav-link" href="statistics">
-                  <i class="nav-icon icon-speedometer"></i> 业务统计
-                  <span class="badge badge-primary">NEW</span>
-                </a>
-              </li>
-              <li class="nav-title">管理</li>
-            <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="branch">
-                <i class="nav-icon icon-puzzle"></i> 支行管理</a>
-            </li>
-            <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="staff">
-                <i class="nav-icon icon-cursor"></i> 员工管理</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="client">
-                <i class="nav-icon icon-pie-chart"></i> 客户管理</a>
-            </li>
-            <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="account">
-                <i class="nav-icon icon-star"></i> 账户管理</a>
-                
-            <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="debt">
-                <i class="nav-icon icon-bell"></i> 贷款管理</a>
-            </li>
-          </ul>
-        </nav>
-        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
-      </div>
-      
-      <main class="main">        
-        <div class="container-fluid">
-          <div class="animated fadeIn">
-            <div class="input-prepend input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="fa fa-search"></i>
-                  </span>
-                </div>
-                <input class="form-control" id="prependedInput" size="16" type="text" placeholder="搜索客户">
-                <span class="input-group-append">
-                  <button class="btn btn-info" type="button">搜索</button>
-                </span>
-            </div>
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-sm-5">
-                    <div class="small text-muted">2019 6</div>
-                    <h4 class="card-title mb-0">客户管理</h4>
-                  </div>
-                </div>
-                <!-- /.row-->
-                <div>
-                      <!--Here comes our table!-->
-                      <div>
-                        <table id="bank-table">
-                            <tr>
-                              {% for i in labels %}
-                                <th> {{ i }}</th>
-                              {% endfor %}
-                            </tr>
+      }
+    }
+    function openForm() {
+      document.getElementById("updateForm").style.display = "block";
+    }
 
-                              {% for i in content %}
-                                <tr>
-                                <td> {{ i.ID }} </td>
-                                <td> {{ i.name }} </td>
-                                <td> {{ i.phone }} </td>
-                                <td> {{ i.address }} </td>
-                                <td> {{ i.staffID }} </td>
-                                <td>
-                                    <label class="btn btn-success">更新</label>
-                                    <label class="btn bg-danger">删除</label>
-                                </td>
-                                </tr>
-                              {% endfor %}
+    function closeForm() {
+      document.getElementById("updateForm").style.display = "none";
+    }
 
-                        </table>
-                    </div>
-                </div>
-              </div>
-          </div>
-        </div>
-      </main>
-      <aside class="aside-menu">
-        <ul class="nav nav-tabs" role="tablist">
+    function openwForm() {
+      document.getElementById("deleteWarning").style.display = "block";
+    }
+
+    function closewForm() {
+      document.getElementById("deleteWarning").style.display = "none";
+    } 
+  </script>
+</head>
+
+<div class="form-popup" id="updateForm">
+  <form class="form-container">
+    <h1>更新表单</h1>
+
+    <label for="email"><b>客户id</b></label>
+    <input type="text" placeholder="客户id" name="客户id" required>
+
+    <label for="email"><b>客户电话</b></label>
+    <input type="text" placeholder="客户电话" name="客户电话" required>
+
+    <label for="email"><b>客户地址</b></label>
+    <input type="text" placeholder="客户地址" name="客户地址" required>
+
+    <label for="email"><b>员工id</b></label>
+    <input type="text" placeholder="员工id" name="员工id" required>
+
+    <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
+    <button type="button" class="btn bg-danger" onclick="closeForm()">取消</button
+
+  </form>
+</div>
+
+<div class="form-popup" id="deleteWarning">
+  <form class="form-container">
+    <h4>确认删除吗？</h4>
+
+    <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
+    <button type="button" class="btn bg-danger" onclick="closewForm();">取消</button>
+  </form>
+</div>
+
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+  <header class="app-header navbar">
+  </header>
+  <div class="app-body">
+    <div class="sidebar">
+      <nav class="sidebar-nav">
+        <ul class="nav">
+          <li class="nav-title">银行</li>
+          <a class="nav-link" href="index">
+            <i class="nav-icon icon-speedometer"></i> 首页
+          </a>
+          <li class="nav-title">统计</li>
           <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">
-              <i class="icon-list"></i>
+            <a class="nav-link" href="statistics">
+              <i class="nav-icon icon-speedometer"></i> 业务统计
+              <span class="badge badge-primary">NEW</span>
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
-              <i class="icon-speech"></i>
-            </a>
+          <li class="nav-title">管理</li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="branch">
+              <i class="nav-icon icon-puzzle"></i> 支行管理</a>
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="staff">
+              <i class="nav-icon icon-cursor"></i> 员工管理</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
-              <i class="icon-settings"></i>
-            </a>
+            <a class="nav-link" href="client">
+              <i class="nav-icon icon-pie-chart"></i> 客户管理</a>
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="account">
+              <i class="nav-icon icon-star"></i> 账户管理</a>
+
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="debt">
+              <i class="nav-icon icon-bell"></i> 贷款管理</a>
           </li>
         </ul>
-        <!-- Tab panes-->
-        
-
-      </aside>
+      </nav>
+      <button class="sidebar-minimizer brand-minimizer" type="button"></button>
     </div>
-    <footer class="app-footer">
-      <div>
-        <a href="https://coreui.io">CoreUI</a>
-        <span>&copy; 2018 creativeLabs.</span>
-      </div>
-      <div class="ml-auto">
-        <span>Powered by</span>
-        <a href="https://coreui.io">CoreUI</a>
-      </div>
-    </footer>
-  </body>
+
+    <main class="main">
+      <div class="container-fluid">
+        <div class="animated fadeIn">
+          <div class="input-prepend input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fa fa-search"></i>
+              </span>
+            </div>
+            <input class="form-control" id="prependedInput" size="16" type="text" placeholder="搜索客户">
+            <span class="input-group-append">
+              <button class="btn btn-info" type="button">搜索</button>
+            </span>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-5">
+                  <div class="small text-muted">2019 6</div>
+                  <h4 class="card-title mb-0">客户管理</h4>
+                </div>
+              </div>
+              <!-- /.row-->
+              <div>
+                <!--Here comes our table!-->
+                <div>
+                  <table id="bank-table">
+                    <tr>
+                      {% for i in labels %}
+                      <th> {{ i }}</th>
+                      {% endfor %}
+                      <th> 操作 </th>
+                    </tr>
+
+                    {% for i in content %}
+                    <tr id="{{ i.ID }}">
+                      <td> {{ i.ID }} </td>
+                      <td> {{ i.name }} </td>
+                      <td> {{ i.phone }} </td>
+                      <td> {{ i.address }} </td>
+                      <td> {{ i.staffID }} </td>
+                      <td>
+                        <label class="btn btn-success" onclick="openForm()">更新</label>
+                        <label class="btn bg-danger" onclick="openwForm()">删除</label>
+                      </td>
+                    </tr>
+                    {% endfor %}
+
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </main>
+    <aside class="aside-menu">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">
+            <i class="icon-list"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
+            <i class="icon-speech"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
+            <i class="icon-settings"></i>
+          </a>
+        </li>
+      </ul>
+      <!-- Tab panes-->
+
+
+    </aside>
+  </div>
+  <footer class="app-footer">
+    <div>
+      <a href="https://coreui.io">CoreUI</a>
+      <span>&copy; 2018 creativeLabs.</span>
+    </div>
+    <div class="ml-auto">
+      <span>Powered by</span>
+      <a href="https://coreui.io">CoreUI</a>
+    </div>
+  </footer>
+</body>
+
 </html>

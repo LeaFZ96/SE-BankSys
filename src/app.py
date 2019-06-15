@@ -36,6 +36,22 @@ def add_user():
 def branch():
     labels = ['支行名', '支行资产', '所在城市']
     result = Branch.query.all()
+
+    if request.method == 'GET':
+        return render_template('branch.html', labels=labels, content=result)
+    else:
+        old_name = request.form.get('old_name')
+        branch_name = request.form.get('branch_name')
+        branch_asset = request.form.get('branch_asset')
+        branch_city = request.form.get('branch_city')
+        branch_result = db.session.query(Branch).filter_by(name=old_name).first()
+        branch_result.name = branch_name
+        branch_result.assets = branch_asset
+        branch_result.city = branch_city
+        db.session.commit()
+
+        result = Branch.query.all()
+
     return render_template('branch.html', labels=labels, content=result)
 
 @app.route('/client', methods=['GET', 'POST'])
@@ -64,12 +80,16 @@ def debt():
     content = Loan.query.all()
     return render_template('debt.html', labels=labels, content=content)
 
-@app.route('/test')
+@app.route('/statistics', methods=['GET', 'POST'])
+def statistics():
+    return render_template('statistics.html')
+
+@app.route('/test', methods=['GET', 'POST'])
 def test_mod():
-    result = db.session.query(Branch).filter_by(name='合肥分行').first()
-    result.name = '北京分行'
-    db.session.commit()
-    return 'Hello'
+    old_name = request.form.get('old_name')
+    result = db.session.query(Branch).filter_by(name=old_name).first()
+    stri = str(result.name)
+    return stri
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
