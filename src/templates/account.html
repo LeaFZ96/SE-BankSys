@@ -17,16 +17,7 @@
     <meta name="author" content="Łukasz Holeczek">
     <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
     <title>银行业务管理系统</title>
-    <!-- Icons-->
-    <link href="node_modules/@coreui/icons/css/coreui-icons.min.css" rel="stylesheet">
-    <link href="node_modules/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-    <link href="node_modules/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="node_modules/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
-    <!-- Main styles for this application-->
-    <link href="../static/style.css" rel="stylesheet">
-    <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
-    <!-- Global site tag (gtag.js) - Google Analytics-->
-    <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
     <script>
       window.dataLayer = window.dataLayer || [];
 
@@ -48,35 +39,35 @@
         <nav class="sidebar-nav">
             <ul class="nav">
                 <li class="nav-title">银行</li>
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index">
                     <i class="nav-icon icon-speedometer"></i> 首页
                   </a>
               <li class="nav-title">统计</li>
               <li class="nav-item">
-                <a class="nav-link" href="statistics.html">
+                <a class="nav-link" href="statistics">
                   <i class="nav-icon icon-speedometer"></i> 业务统计
                   <span class="badge badge-primary">NEW</span>
                 </a>
               </li>
               <li class="nav-title">管理</li>
             <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="branch.html">
+              <a class="nav-link nav-dropdown-toggle" href="branch">
                 <i class="nav-icon icon-puzzle"></i> 支行管理</a>
             </li>
             <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="staff.html">
+              <a class="nav-link nav-dropdown-toggle" href="staff">
                 <i class="nav-icon icon-cursor"></i> 员工管理</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="client.html">
+              <a class="nav-link" href="client">
                 <i class="nav-icon icon-pie-chart"></i> 客户管理</a>
             </li>
             <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="account.html">
+              <a class="nav-link nav-dropdown-toggle" href="account">
                 <i class="nav-icon icon-star"></i> 账户管理</a>
                 
             <li class="nav-item nav-dropdown">
-              <a class="nav-link nav-dropdown-toggle" href="debt.html">
+              <a class="nav-link nav-dropdown-toggle" href="debt">
                 <i class="nav-icon icon-bell"></i> 贷款管理</a>
             </li>
           </ul>
@@ -117,25 +108,48 @@
                       <div>
                         <table id="bank-table">
                             <tr>
-                            <th>账户</th>
-                            <th>开户时间</th>
-                            <th>开户支行</th>
-                            <th>账户余额</th>
-                            <th>最近访问日期</th>
-                            <th></th>
+                            {% for i in labels1 %}
+                              <th> {{ i }} </th>
+                            {% endfor %}
                             </tr>
 
+                            {% for i in content1 %}
                             <tr>
-                            <td>0232101</td>
-                            <td>2019/3/12</td>
-                            <td>b321</td>
-                            <td>372819</td>
-                            <td>2019/3/15</td>
+                            <td> {{ i.account }} </td>
+                            <td> {{ i.openDate }} </td>
+                            <td> {{ i.balance }} </td>
+                            <td> {{ i.latestVisitDate }} </td>
+                            <td> {{ i.interestRate }} </td>
+                            <td> {{ i.currencyType }} </td>
                             <td>
-                                <label class="btn btn-success">更新</label>
-                                <label class="btn bg-danger">删除</label>
+                              <label class="btn btn-success">更新</label>
+                              <label class="btn bg-danger">删除</label>
                             </td>
                             </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div>
+                        <table id="bank-table">
+                            <tr>
+                            {% for i in labels2 %}
+                              <th> {{ i }} </th>
+                            {% endfor %}
+                            </tr>
+
+                            {% for i in content2 %}
+                            <tr>
+                            <td> {{ i.account }} </td>
+                            <td> {{ i.openedDate }} </td>
+                            <td> {{ i.balance }} </td>
+                            <td> {{ i.latestVisitDate }} </td>
+                            <td> {{ i.overdraft }} </td>
+                            <td>
+                              <label class="btn btn-success">更新</label>
+                              <label class="btn bg-danger">删除</label>
+                            </td>
+                            </tr>
+                            {% endfor %}
                         </table>
                     </div>
                 </div>
@@ -177,15 +191,5 @@
       </div>
     </footer>
     <!-- CoreUI and necessary plugins-->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/popper.js/dist/umd/popper.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="node_modules/pace-progress/pace.min.js"></script>
-    <script src="node_modules/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
-    <script src="node_modules/@coreui/coreui/dist/js/coreui.min.js"></script>
-    <!-- Plugins and scripts required by this view-->
-    <script src="node_modules/chart.js/dist/Chart.min.js"></script>
-    <script src="node_modules/@coreui/coreui-plugin-chartjs-custom-tooltips/dist/js/custom-tooltips.min.js"></script>
-    <script src="js/main.js"></script>
   </body>
 </html>
