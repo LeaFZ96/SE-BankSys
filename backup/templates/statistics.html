@@ -23,56 +23,236 @@
   <script src="https://www.amcharts.com/lib/4/charts.js"></script>
   <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
   <script>
-      am4core.ready(function() {
-      
-      // Themes begin
+    am4core.ready(function () {
+
+      // 储存 存款
       am4core.useTheme(am4themes_animated);
-      // Themes end
+      var saving_in = am4core.create("saving_in", am4charts.PieChart);
+
+      saving_in.data = [{
+        "支行": "黑龙江支行",
+        "存款": 501.9
+      }, {
+        "支行": "成都支行",
+        "存款": 301.9
+      }, {
+        "支行": "上海支行",
+        "存款": 201.1
+      }, {
+        "支行": "合肥支行",
+        "存款": 165.8
+      }, {
+        "支行": "南京支行",
+        "存款": 139.9
+      }];
       
-      // Create chart instance
-      var chart = am4core.create("chartdiv", am4charts.PieChart);
+      var pieSeries = saving_in.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "存款";
+      pieSeries.dataFields.category = "支行";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeWidth = 2;
+      pieSeries.slices.template.strokeOpacity = 1;
+
+      pieSeries.hiddenState.properties.opacity = 1;
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
+
+      //储存 取款
+
+      var saving_out = am4core.create("saving_out", am4charts.PieChart);
+
+      saving_out.data = [{
+        "支行": "黑龙江支行",
+        "取款": 101.9
+      }, {
+        "支行": "成都支行",
+        "取款": 701.9
+      }, {
+        "支行": "上海支行",
+        "取款": 14.1
+      }, {
+        "支行": "合肥支行",
+        "取款": 645.8
+      }, {
+        "支行": "南京支行",
+        "取款": 329.9
+      }];
       
-      // Add data
-      chart.data = [ {
-        "支行": "Lithuania",
-        "总金额": 501.9
+      var pieSeries = saving_out.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "取款";
+      pieSeries.dataFields.category = "支行";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeWidth = 2;
+      pieSeries.slices.template.strokeOpacity = 1;
+
+      
+      pieSeries.hiddenState.properties.opacity = 1;
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
+
+      // 储存 总金额
+
+      var saving_total = am4core.create("saving_total", am4charts.PieChart);
+
+      saving_total.data = [{
+        "支行": "黑龙江支行",
+        "总金额": 301.9
       }, {
-        "country": "Czech Republic",
-        "litres": 301.9
+        "支行": "成都支行",
+        "总金额": 101.9
       }, {
-        "country": "Ireland",
-        "litres": 201.1
+        "支行": "上海支行",
+        "总金额": 1214.1
       }, {
-        "country": "Germany",
-        "litres": 165.8
+        "支行": "合肥支行",
+        "总金额": 345.8
       }, {
-        "country": "Australia",
-        "litres": 139.9
+        "支行": "南京支行",
+        "总金额": 129.9
+      }];
+      
+      var pieSeries = saving_total.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "总金额";
+      pieSeries.dataFields.category = "支行";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeWidth = 2;
+      pieSeries.slices.template.strokeOpacity = 1;
+
+      
+      pieSeries.hiddenState.properties.opacity = 1;
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
+
+      /////////储存 用户
+      var saving_users = am4core.create("saving_users", am4charts.PieChart);
+
+      saving_users.data = [{
+        "支行": "黑龙江支行",
+        "用户": 301.9
       }, {
-        "country": "Austria",
-        "litres": 128.3
+        "支行": "成都支行",
+        "用户": 101.9
       }, {
-        "country": "UK",
-        "litres": 99
+        "支行": "上海支行",
+        "用户": 1214.1
       }, {
-        "country": "Belgium",
-        "litres": 60
+        "支行": "合肥支行",
+        "用户": 345.8
       }, {
-        "country": "The Netherlands",
-        "litres": 50
-      } ];
+        "支行": "南京支行",
+        "用户": 129.9
+      }];
+      
+      var pieSeries = saving_users.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "用户";
+      pieSeries.dataFields.category = "支行";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeWidth = 2;
+      pieSeries.slices.template.strokeOpacity = 1;
+
+      
+      pieSeries.hiddenState.properties.opacity = 1;
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
+
+      var debt_total = am4core.create("debt_total", am4charts.PieChart);
+
+      debt_total.data = [{
+        "支行": "黑龙江支行",
+        "总金额": 301.9
+      }, {
+        "支行": "成都支行",
+        "总金额": 101.9
+      }, {
+        "支行": "上海支行",
+        "总金额": 1214.1
+      }, {
+        "支行": "合肥支行",
+        "总金额": 345.8
+      }, {
+        "支行": "南京支行",
+        "总金额": 129.9
+      }];
+      
+      var pieSeries = debt_total.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "总金额";
+      pieSeries.dataFields.category = "支行";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeWidth = 2;
+      pieSeries.slices.template.strokeOpacity = 1;
+
+      
+      pieSeries.hiddenState.properties.opacity = 1;
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
+      /////////
+      var debt_users = am4core.create("debt_users", am4charts.PieChart);
+
+      debt_users.data = [{
+        "支行": "黑龙江支行",
+        "用户": 301.9
+      }, {
+        "支行": "成都支行",
+        "用户": 101.9
+      }, {
+        "支行": "上海支行",
+        "用户": 1214.1
+      }, {
+        "支行": "合肥支行",
+        "用户": 345.8
+      }, {
+        "支行": "南京支行",
+        "用户": 129.9
+      }];
+      
+      var pieSeries = debt_users.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "用户";
+      pieSeries.dataFields.category = "支行";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeWidth = 2;
+      pieSeries.slices.template.strokeOpacity = 1;
+
+      
+      pieSeries.hiddenState.properties.opacity = 1;
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
+
+
+    }); // end am4core.ready()
   </script>
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
   <header class="app-header navbar">
+    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    
+      <form>
+        <input type="text" name="year">
+        <input class="bg-info" type="submit" value="年份">
+      </form>
+
+      <form>
+        <input type="text" name="year">年
+        <input type="text" name="season">季度
+        <input class="bg-success" type="submit" value="季度">
+      </form>
+
+      <form>
+        <input type="text" name="year">年
+        <input type="text" name="month">月
+        <input class="bg-warning" type="submit" value="月份">
+      </form>
   </header>
   <div class="app-body">
     <div class="sidebar">
       <nav class="sidebar-nav">
         <ul class="nav">
           <li class="nav-title">银行</li>
-          <a class="nav-link" href="index.html">
+          <a class="nav-link"href="index.html">
             <i class="nav-icon icon-speedometer"></i> 首页
           </a>
           <li class="nav-title">统计</li>
@@ -114,16 +294,14 @@
               <div class="card-columns cols-2">
                 <div class="card">
                   <div class="card-header">储蓄 存款
-                    <div class="card-header-actions">
-                      
-                    </div>
                   </div>
                   <div class="card-body">
-                    <div class="chart-wrapper">
-                      <canvas id="canvas-1"></canvas>
-                    </div>
+                
+                    <div class="chartdiv" id="saving_in"></div>
+                
                   </div>
                 </div>
+
                 <div class="card">
                   <div class="card-header">储蓄 取款
                     <div class="card-header-actions">
@@ -131,21 +309,16 @@
                     </div>
                   </div>
                   <div class="card-body">
-                    <div class="chart-wrapper">
-                      <canvas id="canvas-2"></canvas>
-                    </div>
+                      <div class="chartdiv" id="saving_out"></div>
                   </div>
                 </div>
                 <div class="card">
                   <div class="card-header">储蓄 总金额
                     <div class="card-header-actions">
-                      
                     </div>
                   </div>
                   <div class="card-body">
-                    <div class="chart-wrapper">
-                      <canvas id="canvas-3"></canvas>
-                    </div>
+                      <div class="chartdiv" id="saving_total"></div>
                   </div>
                 </div>
                 <div class="card">
@@ -155,9 +328,7 @@
                     </div>
                   </div>
                   <div class="card-body">
-                    <div class="chart-wrapper">
-                      <canvas id="canvas-4"></canvas>
-                    </div>
+                      <div class="chartdiv" id="saving_users"></div>
                   </div>
                 </div>
                 <div class="card">
@@ -167,9 +338,7 @@
                     </div>
                   </div>
                   <div class="card-body">
-                    <div class="chart-wrapper">
-                      <canvas id="canvas-5"></canvas>
-                    </div>
+                      <div class="chartdiv" id="debt_total"></div>
                   </div>
                 </div>
                 <div class="card">
@@ -179,10 +348,7 @@
                     </div>
                   </div>
                   <div class="card-body">
-                    <div class="chart-wrapper">
-                      <canvas id="canvas-6"></canvas>
-                    </div>
-                  </div>
+                      <div class="chartdiv" id="debt_users"></div>
                 </div>
               </div>
             </div>
