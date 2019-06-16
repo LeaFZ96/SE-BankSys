@@ -1536,6 +1536,9 @@ pre code {
   border-collapse: collapse;
   text-align:center; 
   width: 100%;
+   -moz-border-radius:10px;  
+    -webkit-border-radius:10px;  
+    border-radius:10px}  
 }
 
 #bank-table td, #bank-table th {
@@ -1909,6 +1912,27 @@ pre code {
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+
+.date input[type=text], .form-container input[type=password] {
+  border: none;
+  background: #f1f1f1;
+  margin: 5px 0 22px 0;
+  padding: 5px;
+  height: 35px
+}
+
+.form-insert{
+  width: 100%
+}
+.form-insert input[type=text], .form-container input[type=password] {
+  border: none;
+  background: #f1f1f1;
+  margin: 5px 0 22px 0;
+  padding: 15px;
+  height: 40px
+}
+
 
 .form-popup {
   display: none;
@@ -2650,7 +2674,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-warning {
-  color: #23282c;
+  color:#fff;
   background-color: #ffc107;
   border-color: #ffc107;
 }
