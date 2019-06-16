@@ -38,16 +38,27 @@
         }
       }
     }
-    function openForm() {
-      document.getElementById("updateForm").style.display = "block";
+    function openSForm(key) {
+      document.getElementById("updateSForm").style.display = "block";
+      update_sform.key.value = key;
     }
 
-    function closeForm() {
-      document.getElementById("updateForm").style.display = "none";
+    function openCForm(key) {
+      document.getElementById("updateCForm").style.display = "block";
+      update_cform.key.value = key;
     }
 
-    function openwForm() {
+    function closeSForm() {
+      document.getElementById("updateSForm").style.display = "none";
+    }
+
+    function closeCForm() {
+      document.getElementById("updateCForm").style.display = "none";
+    }
+
+    function openwForm(key) {
       document.getElementById("deleteWarning").style.display = "block";
+      delete_form.key.value = key;
     }
 
     function closewForm() {
@@ -56,34 +67,66 @@
   </script>
 </head>
 
-<div class="form-popup" id="updateForm">
-  <form class="form-container">
+<div class="form-popup" id="updateSForm">
+  <form class="form-container" name="update_sform" method="POST">
     <h1>更新表单</h1>
 
-    <label for="email"><b>账户</b></label>
-    <input type="text" placeholder="账户" name="账户" required>
+    <input type="hidden" name="key" value="">
+
+    <input type="hidden" name="type" value="supdate">
 
     <label for="email"><b>开户时间</b></label>
-    <input type="text" placeholder="开户时间" name="开户时间" required>
-
-    <label for="email"><b>开户支行</b></label>
-    <input type="text" placeholder="开户支行" name="开户支行" required>
+    <input type="text" placeholder="开户时间" name="sOpenDate" required>
 
     <label for="email"><b>账户余额</b></label>
-    <input type="text" placeholder="账户余额" name="账户余额" required>
+    <input type="text" placeholder="账户余额" name="sBalance" required>
 
-    <label for="email"><b>最近访问日期</b></label>
-    <input type="text" placeholder="最近访问日期" name="最近访问日期" required>
+    <label for="email"><b>最近访问时间</b></label>
+    <input type="text" placeholder="最近访问时间" name="sLatest" required>
+
+    <label for="email"><b>利率</b></label>
+    <input type="text" placeholder="利率" name="sInterest" required>
+
+    <label for="email"><b>货币类型</b></label>
+    <input type="text" placeholder="货币类型" name="sCType" required>
 
     <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
-    <button type="button" class="btn bg-danger" onclick="closeForm();">取消</button>
+    <button type="button" class="btn bg-danger" onclick="closeSForm();">取消</button>
+  </form>
+</div>
+
+<div class="form-popup" id="updateCForm">
+  <form class="form-container" name="update_cform" method="POST">
+    <h1>更新表单</h1>
+
+    <input type="hidden" name="key" value="">
+
+    <input type="hidden" name="type" value="cupdate">
+
+    <label for="email"><b>开户时间</b></label>
+    <input type="text" placeholder="开户时间" name="cOpenDate" required>
+
+    <label for="email"><b>账户余额</b></label>
+    <input type="text" placeholder="账户余额" name="cBalance" required>
+
+    <label for="email"><b>最近访问时间</b></label>
+    <input type="text" placeholder="最近访问时间" name="cLatest" required>
+
+    <label for="email"><b>透支额度</b></label>
+    <input type="text" placeholder="透支额度" name="cOver" required>
+
+    <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
+    <button type="button" class="btn bg-danger" onclick="closeCForm();">取消</button>
   </form>
 </div>
 
 <div class="form-popup" id="deleteWarning">
-  <form class="form-container">
+  <form class="form-container" name="delete_form" method="POST">
     <h4>确认删除吗？</h4>
 
+    <input type="hidden" name="type" value="delete">
+
+    <input type="hidden" name="key" value="">
     <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
     <button type="button" class="btn bg-danger" onclick="closewForm();">取消</button>
   </form>
@@ -121,7 +164,7 @@
             <a class="nav-link nav-dropdown-toggle" href="client">
               <i class="nav-icon icon-cursor"></i> 客户管理</a>
           </li>
-          
+
           <li class="nav-item">
             <a class="nav-link" href="account">
               <i class="nav-icon icon-pie-chart"></i> 账户管理</a>
@@ -138,17 +181,59 @@
     <main class="main">
       <div class="container-fluid">
         <div class="animated fadeIn">
+
+          <div class="card">
+            <form method="POST">
+              <input type="hidden" name="type" value="addAcc">
+
+              <label for="sdate"><b>客户ID</b></label>
+              <input type="text" placeholder="客户ID" name="clientID" required>
+
+              <label for="sdate"><b>客户姓名</b></label>
+              <input type="text" placeholder="客户姓名" name="clientName" required>
+
+              <label for="sdate"><b>开户支行</b></label>
+              <input type="text" placeholder="开户支行" name="branch" required>
+
+              <label for="sdate"><b>开户时间</b></label>
+              <input type="text" placeholder="开户时间" name="openDate" required>
+
+              <label for="balance"><b>账户余额</b></label>
+              <input type="text" placeholder="账户余额" name="balance" required>
+
+              <label for="balance"><b>账户类型</b></label>
+              <select name="accType">
+                <option value="saving">储蓄账户</option>
+                <option value="check">支票账户</option>
+              </select>
+
+              <label for="balance"><b>利率（储蓄）</b></label>
+              <input type="text" placeholder="利率（储蓄" name="interest" required>
+
+              <label for="balance"><b>货币类型（储蓄）</b></label>
+              <input type="text" placeholder="货币类型（储蓄" name="currType" required>
+
+              <label for="balance"><b>透支额度（支票）</b></label>
+              <input type="text" placeholder="透支额度（支票" name="overDraft" required>
+
+              <button class="btn bg-warning" type="submit">添加</button>
+
+            </form>
+          </div>
+
           <div class="input-prepend input-group">
             <div class="input-group-prepend">
               <span class="input-group-text">
                 <i class="fa fa-search"></i>
               </span>
             </div>
-            <input class="form-control" id="prependedInput" size="16" type="text" placeholder="搜索账户">
+            <input onkeyup="tableFilter()" class="form-control" id="prependedInput" size="16" type="text"
+              placeholder="搜索账户">
             <span class="input-group-append">
               <button class="btn btn-info" type="button">搜索</button>
             </span>
           </div>
+
           <div class="card">
             <div class="card-body">
               <div class="row">
@@ -175,20 +260,24 @@
                     </tr>
 
                     {% for i in content1 %}
-                    <tr id="{{ i.account }}">
-                      <td> {{ i.account }} </td>
-                      <td> {{ i.openDate }} </td>
-                      <td> {{ i.balance }} </td>
-                      <td> {{ i.latestVisitDate }} </td>
-                      <td> {{ i.interestRate }} </td>
-                      <td> {{ i.currencyType }} </td>
+                    <tr id="{{ i[0].account }}">
+                      <td> {{ i[0].account }} </td>
+                      <td> {{ i[2].ID }} </td>
+                      <td> {{ i[2].name }} </td>
+                      <td> {{ i[1].branchName }} </td>
+                      <td> {{ i[0].openedDate }} </td>
+                      <td> {{ i[0].balance }} </td>
+                      <td> {{ i[0].latestVisitDate }} </td>
+                      <td> {{ i[0].interestRate }} </td>
+                      <td> {{ i[0].currencyType }} </td>
                       <td>
-                        <label class="btn btn-success" onclick="openForm()">更新</label>
+                        <label class="btn btn-success" onclick="openSForm()">更新</label>
                         <label class="btn bg-danger" onclick="openwForm()">删除</label>
                       </td>
                     </tr>
                     {% endfor %}
                   </table>
+
                 </div>
               </div>
             </div>
@@ -230,16 +319,19 @@
                         {% endfor %}
                         <th> 操作 </th>
                       </tr>
-  
+
                       {% for i in content2 %}
-                      <tr id="{{ i.account }}">
-                        <td> {{ i.account }} </td>
-                        <td> {{ i.openedDate }} </td>
-                        <td> {{ i.balance }} </td>
-                        <td> {{ i.latestVisitDate }} </td>
-                        <td> {{ i.overdraft }} </td>
+                      <tr id="{{ i[0].account }}">
+                        <td> {{ i[0].account }} </td>
+                        <td> {{ i[2].ID }} </td>
+                        <td> {{ i[2].name }} </td>
+                        <td> {{ i[1].branchName }} </td>
+                        <td> {{ i[0].openedDate }} </td>
+                        <td> {{ i[0].balance }} </td>
+                        <td> {{ i[0].latestVisitDate }} </td>
+                        <td> {{ i[0].overdraft }} </td>
                         <td>
-                          <label class="btn btn-success" onclick="openForm()">更新</label>
+                          <label class="btn btn-success" onclick="openCForm()">更新</label>
                           <label class="btn bg-danger" onclick="openwForm()">删除</label>
                         </td>
                       </tr>

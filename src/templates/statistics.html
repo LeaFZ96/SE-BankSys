@@ -10,171 +10,373 @@
 <html lang="en">
 
 <head>
-    <base href="./">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>银行业务管理系统</title>
-    <!-- Main styles for this application-->
-    <link href="../static/style.css" rel="stylesheet">
-    <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
+  <base href="./">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>银行业务管理系统</title>
+  <!-- Main styles for this application-->
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+  <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
 
-    <script>
+  <!-- Resources -->
+  <script src="https://www.amcharts.com/lib/4/core.js"></script>
+  <script src="https://www.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+  <script>
+    am4core.ready(function () {
 
-    </script>
+      // 储存 存款
+      am4core.useTheme(am4themes_animated);
+      var saving_in = am4core.create("saving_in", am4charts.PieChart);
+
+      saving_in.data = [{
+        "支行": "黑龙江支行",
+        "存款": 501.9
+      }, {
+        "支行": "成都支行",
+        "存款": 301.9
+      }, {
+        "支行": "上海支行",
+        "存款": 201.1
+      }, {
+        "支行": "合肥支行",
+        "存款": 165.8
+      }, {
+        "支行": "南京支行",
+        "存款": 139.9
+      }];
+      
+      var pieSeries = saving_in.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "存款";
+      pieSeries.dataFields.category = "支行";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeWidth = 2;
+      pieSeries.slices.template.strokeOpacity = 1;
+
+      pieSeries.hiddenState.properties.opacity = 1;
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
+
+      //储存 取款
+
+      var saving_out = am4core.create("saving_out", am4charts.PieChart);
+
+      saving_out.data = [{
+        "支行": "黑龙江支行",
+        "取款": 101.9
+      }, {
+        "支行": "成都支行",
+        "取款": 701.9
+      }, {
+        "支行": "上海支行",
+        "取款": 14.1
+      }, {
+        "支行": "合肥支行",
+        "取款": 645.8
+      }, {
+        "支行": "南京支行",
+        "取款": 329.9
+      }];
+      
+      var pieSeries = saving_out.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "取款";
+      pieSeries.dataFields.category = "支行";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeWidth = 2;
+      pieSeries.slices.template.strokeOpacity = 1;
+
+      
+      pieSeries.hiddenState.properties.opacity = 1;
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
+
+      // 储存 总金额
+
+      var saving_total = am4core.create("saving_total", am4charts.PieChart);
+
+      saving_total.data = [{
+        "支行": "黑龙江支行",
+        "总金额": 301.9
+      }, {
+        "支行": "成都支行",
+        "总金额": 101.9
+      }, {
+        "支行": "上海支行",
+        "总金额": 1214.1
+      }, {
+        "支行": "合肥支行",
+        "总金额": 345.8
+      }, {
+        "支行": "南京支行",
+        "总金额": 129.9
+      }];
+      
+      var pieSeries = saving_total.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "总金额";
+      pieSeries.dataFields.category = "支行";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeWidth = 2;
+      pieSeries.slices.template.strokeOpacity = 1;
+
+      
+      pieSeries.hiddenState.properties.opacity = 1;
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
+
+      /////////储存 用户
+      var saving_users = am4core.create("saving_users", am4charts.PieChart);
+
+      saving_users.data = [{
+        "支行": "黑龙江支行",
+        "用户": 301.9
+      }, {
+        "支行": "成都支行",
+        "用户": 101.9
+      }, {
+        "支行": "上海支行",
+        "用户": 1214.1
+      }, {
+        "支行": "合肥支行",
+        "用户": 345.8
+      }, {
+        "支行": "南京支行",
+        "用户": 129.9
+      }];
+      
+      var pieSeries = saving_users.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "用户";
+      pieSeries.dataFields.category = "支行";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeWidth = 2;
+      pieSeries.slices.template.strokeOpacity = 1;
+
+      
+      pieSeries.hiddenState.properties.opacity = 1;
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
+
+      var debt_total = am4core.create("debt_total", am4charts.PieChart);
+
+      debt_total.data = [{
+        "支行": "黑龙江支行",
+        "总金额": 301.9
+      }, {
+        "支行": "成都支行",
+        "总金额": 101.9
+      }, {
+        "支行": "上海支行",
+        "总金额": 1214.1
+      }, {
+        "支行": "合肥支行",
+        "总金额": 345.8
+      }, {
+        "支行": "南京支行",
+        "总金额": 129.9
+      }];
+      
+      var pieSeries = debt_total.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "总金额";
+      pieSeries.dataFields.category = "支行";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeWidth = 2;
+      pieSeries.slices.template.strokeOpacity = 1;
+
+      
+      pieSeries.hiddenState.properties.opacity = 1;
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
+      /////////
+      var debt_users = am4core.create("debt_users", am4charts.PieChart);
+
+      debt_users.data = [{
+        "支行": "黑龙江支行",
+        "用户": 301.9
+      }, {
+        "支行": "成都支行",
+        "用户": 101.9
+      }, {
+        "支行": "上海支行",
+        "用户": 1214.1
+      }, {
+        "支行": "合肥支行",
+        "用户": 345.8
+      }, {
+        "支行": "南京支行",
+        "用户": 129.9
+      }];
+      
+      var pieSeries = debt_users.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "用户";
+      pieSeries.dataFields.category = "支行";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeWidth = 2;
+      pieSeries.slices.template.strokeOpacity = 1;
+
+      
+      pieSeries.hiddenState.properties.opacity = 1;
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
 
 
+    }); // end am4core.ready()
+  </script>
 </head>
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-    <header class="app-header navbar">
-    </header>
-    <div class="app-body">
-        <div class="sidebar">
-            <nav class="sidebar-nav">
-                <ul class="nav">
-                  <li class="nav-title">银行</li>
-                  <a class="nav-link" href="index">
-                    <i class="nav-icon icon-speedometer"></i> 首页
-                  </a>
-                  <li class="nav-title">统计</li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="statistics">
-                      <i class="nav-icon icon-speedometer"></i> 业务统计
-                      <span class="badge badge-primary">NEW</span>
-                    </a>
-                  </li>
-                  <li class="nav-title">管理</li>
-                  <a class="nav-link" href="branch">
-                    <i class="nav-icon icon-pie-chart"></i> 支行管理</a>
-                  </li>
-                  <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="staff">
-                      <i class="nav-icon icon-cursor"></i> 员工管理</a>
-                  </li>
-                  <li class="nav-item">
-                  <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="client">
-                      <i class="nav-icon icon-puzzle"></i> 客户管理</a>
-                  </li>
-              
-                  <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="account">
-                      <i class="nav-icon icon-star"></i> 账户管理</a>
-              
-                  <li class="nav-item nav-dropdown">
-                    <a class="nav-link nav-dropdown-toggle" href="debt">
-                      <i class="nav-icon icon-bell"></i> 贷款管理</a>
-                  </li>
-                </ul>
-              </nav>
-            <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+  <header class="app-header navbar">
+    <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" data-toggle="sidebar-lg-show">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    
+      <form>
+        <input type="text" name="year">
+        <input class="bg-info" type="submit" value="年份">
+      </form>
+
+      <form>
+        <input type="text" name="year">年
+        <input type="text" name="season">季度
+        <input class="bg-success" type="submit" value="季度">
+      </form>
+
+      <form>
+        <input type="text" name="year">年
+        <input type="text" name="month">月
+        <input class="bg-warning" type="submit" value="月份">
+      </form>
+  </header>
+  <div class="app-body">
+    <div class="sidebar">
+      <nav class="sidebar-nav">
+        <ul class="nav">
+          <li class="nav-title">银行</li>
+          <a class="nav-link" href="index">
+            <i class="nav-icon icon-speedometer"></i> 首页
+          </a>
+          <li class="nav-title">统计</li>
+          <li class="nav-item">
+            <a class="nav-link" href="statistics">
+              <i class="nav-icon icon-speedometer"></i> 业务统计
+              <span class="badge badge-primary">NEW</span>
+            </a>
+          </li>
+          <li class="nav-title">管理</li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="branch">
+              <i class="nav-icon icon-puzzle"></i> 支行管理</a>
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="staff">
+              <i class="nav-icon icon-cursor"></i> 员工管理</a>
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="client">
+              <i class="nav-icon icon-cursor"></i> 客户管理</a>
+          </li>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="account">
+              <i class="nav-icon icon-star"></i> 账户管理</a>
+
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="debt">
+              <i class="nav-icon icon-bell"></i> 贷款管理</a>
+          </li>
+        </ul>
+        </nav>
+        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
         </div>
-
+        
         <main class="main">
-            <div class="container-fluid">
-                <div class="animated fadeIn">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <h4 class="card-title mb-0">Traffic</h4>
-                                    <div class="small text-muted">November 2017</div>
-                                </div>
-                                <!-- /.col-->
-                                <div class="col-sm-7 d-none d-md-block">
-                                    <button class="btn btn-primary float-right" type="button">
-                                        <i class="icon-cloud-download"></i>
-                                    </button>
-                                    <div class="btn-group btn-group-toggle float-right mr-3" data-toggle="buttons">
-                                        <label class="btn btn-outline-secondary">
-                                            <input id="option1" type="radio" name="options" autocomplete="off"> Day
-                                        </label>
-                                        <label class="btn btn-outline-secondary active">
-                                            <input id="option2" type="radio" name="options" autocomplete="off"
-                                                checked=""> Month
-                                        </label>
-                                        <label class="btn btn-outline-secondary">
-                                            <input id="option3" type="radio" name="options" autocomplete="off"> Year
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- /.col-->
-                            </div>
-                            <!-- /.row-->
-                            <div class="chart-wrapper" style="height:300px;margin-top:40px;">
-                                <canvas class="chart" id="main-chart" height="300"></canvas>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="row text-center">
-                                <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                    <div class="text-muted">Visits</div>
-                                    <strong>29.703 Users (40%)</strong>
-                                    <div class="progress progress-xs mt-2">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                    <div class="text-muted">Unique</div>
-                                    <strong>24.093 Users (20%)</strong>
-                                    <div class="progress progress-xs mt-2">
-                                        <div class="progress-bar bg-info" role="progressbar" style="width: 20%"
-                                            aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                    <div class="text-muted">Pageviews</div>
-                                    <strong>78.706 Views (60%)</strong>
-                                    <div class="progress progress-xs mt-2">
-                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 60%"
-                                            aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                    <div class="text-muted">New Users</div>
-                                    <strong>22.123 Users (80%)</strong>
-                                    <div class="progress progress-xs mt-2">
-                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 80%"
-                                            aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md mb-sm-2 mb-0">
-                                    <div class="text-muted">Bounce Rate</div>
-                                    <strong>40.15%</strong>
-                                    <div class="progress progress-xs mt-2">
-                                        <div class="progress-bar" role="progressbar" style="width: 40%"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+          <div class="container-fluid">
+            <div class="animated fadeIn">
+              <div class="card-columns cols-2">
+                <div class="card">
+                  <div class="card-header">储蓄 存款
+                  </div>
+                  <div class="card-body">
+                
+                    <div class="chartdiv" id="saving_in"></div>
+                
+                  </div>
                 </div>
+
+                <div class="card">
+                  <div class="card-header">储蓄 取款
+                    <div class="card-header-actions">
+                      
+                    </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="chartdiv" id="saving_out"></div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">储蓄 总金额
+                    <div class="card-header-actions">
+                    </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="chartdiv" id="saving_total"></div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">储蓄 用户数
+                    <div class="card-header-actions">
+                      
+                    </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="chartdiv" id="saving_users"></div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">贷款 总金额
+                    <div class="card-header-actions">
+                      
+                    </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="chartdiv" id="debt_total"></div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">贷款 用户数
+                    <div class="card-header-actions">
+                    
+                    </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="chartdiv" id="debt_users"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </main>
-        <aside class="aside-menu">
-            <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">
-                        <i class="icon-list"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
-                        <i class="icon-speech"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
-                        <i class="icon-settings"></i>
-                    </a>
-                </li>
-            </ul>
-            <!-- Tab panes-->
+    <aside class="aside-menu">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">
+            <i class="icon-list"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#messages" role="tab">
+            <i class="icon-speech"></i>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#settings" role="tab">
+            <i class="icon-settings"></i>
+          </a>
+        </li>
+      </ul>
+      <!-- Tab panes-->
 
 
-        </aside>
-    </div>
+    </aside>
+  </div>
 </body>
 
 </html>

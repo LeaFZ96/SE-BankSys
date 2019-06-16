@@ -174,7 +174,8 @@
                     </tr>
 
                     {% for i in content %}
-                    <tr id="{{i.name}}">
+                    <tr id="{{ i.num }}">
+                      <td> {{ i.num }} </td>
                       <td> {{ i.name }} </td>
                       <td> {{ i.assets }} </td>
                       <td> {{ i.city }} </td>
