@@ -36,7 +36,7 @@
     }
     function openForm(key) {
       document.getElementById("updateForm").style.display = "block";
-      
+      update_form.key.value = key;
     }
 
     function closeForm() {
@@ -45,6 +45,7 @@
 
     function openwForm(key) {
       document.getElementById("deleteWarning").style.display = "block";
+      delete_form.key.value = key;
     }
 
     function closewForm() {
@@ -54,26 +55,24 @@
 </head>
 
 <div class="form-popup" id="updateForm">
-  <form class="form-container">
+  <form class="form-container" name="update_form" method="POST">
     <h1>更新表单</h1>
 
-    <label for="email"><b>员工id</b></label>
-    <input type="text" placeholder="员工id" name="员工id" required>
+    <input type="hidden" name="type" value="update">
+
+    <input type="hidden" name="key" value="">
 
     <label for="email"><b>部门号</b></label>
-    <input type="text" placeholder="部门号" name="部门号" required>
-
-    <label for="email"><b>员工姓名</b></label>
-    <input type="text" placeholder="员工姓名" name="员工姓名" required>
+    <input type="text" placeholder="部门号" name="departNum" required>
 
     <label for="email"><b>员工电话</b></label>
-    <input type="text" placeholder="员工电话" name="员工电话" required>
+    <input type="text" placeholder="员工电话" name="phone" required>
 
     <label for="email"><b>员工地址</b></label>
-    <input type="text" placeholder="员工地址" name="员工地址" required>
+    <input type="text" placeholder="员工地址" name="address" required>
 
     <label for="email"><b>员工职位</b></label>
-    <input type="text" placeholder="员工职位" name="员工职位" required>
+    <input type="text" placeholder="员工职位" name="position" required>
 
     <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
     <button type="button" class="btn bg-danger" onclick="closeForm()">取消</button>
@@ -81,8 +80,12 @@
 </div>
 
 <div class="form-popup" id="deleteWarning">
-  <form class="form-container">
+  <form class="form-container" name="delete_form" method="POST">
     <h4>确认删除吗？</h4>
+
+    <input type="hidden" name="type" value="delete">
+
+    <input type="hidden" name="key" value="">
 
     <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
     <button type="button" class="btn bg-danger" onclick="closewForm();">取消</button>
@@ -178,16 +181,18 @@
                     </tr>
 
                     {% for i in content %}
-                    <tr id="{{ i.ID }}">
-                      <td> {{ i.ID }} </td>
-                      <td> {{ i.departNum }} </td>
-                      <td> {{ i.name }} </td>
-                      <td> {{ i.telephone }} </td>
-                      <td> {{ i.address }} </td>
-                      <td> {{ i.position }} </td>
+                    <tr id="{{ i[0].ID }}">
+                      <td> {{ i[0].ID }} </td>
+                      <td> {{ i[1].branchName }} </td>
+                      <td> {{ i[0].departNum }} </td>
+                      <td> {{ i[0].name }} </td>
+                      <td> {{ i[0].telephone }} </td>
+                      <td> {{ i[0].address }} </td>
+                      <td> {{ i[0].position }} </td>
+                      <td> {{ i[1].employDate }} </td>
                       <td>
-                        <label class="btn btn-success" onclick="openForm()">更新</label>
-                        <label class="btn bg-danger" onclick="openwForm()">删除</label>
+                        <label class="btn btn-success" onclick="openForm(this.parentNode.parentNode.id)">更新</label>
+                        <label class="btn bg-danger" onclick="openwForm(this.parentNode.parentNode.id)">删除</label>
                       </td>
                       {% endfor %}
                     </tr>
@@ -196,7 +201,34 @@
               </div>
             </div>
           </div>
+        <div class="card">
+          <div class="insert-container">
+                  <form class="form-insert" method="POST">
+
+                    <input type="hidden" name="type" value="insert">
+
+                        <input type="text" placeholder="员工ID" name="staffID" required>
+                  
+                        <input type="text" placeholder="所在支行" name="branch" required>
+                  
+                        <input type="text" placeholder="部门号" name="departNum" required>
+                  
+                        <input type="text" placeholder="员工姓名" name="name" required><br>
+
+                        <input type="text" placeholder="员工电话" name="phone" required>
+
+                        <input type="text" placeholder="员工地址" name="address" required>
+
+                        <input type="text" placeholder="员工职位" name="position" required>
+                  
+                        <input type="text" placeholder="雇佣日期" name="date" required>
+                        <button class="btn bg-warning" type="submit">添加</button>
+                  
+                    </form>
+                    </div>
+          </div>
         </div>
+      </div>
     </main>
     <aside class="aside-menu">
       <ul class="nav nav-tabs" role="tablist">

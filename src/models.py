@@ -1,5 +1,5 @@
 # coding: utf-8
-from sqlalchemy import BigInteger, Column, Date, Float, ForeignKey, Index, Integer, String, Table
+from sqlalchemy import BigInteger, Column, Date, Float, ForeignKey, Integer, String, Table
 from sqlalchemy.orm import relationship
 from sqlalchemy.schema import FetchedValue
 from flask_sqlalchemy import SQLAlchemy
@@ -22,25 +22,32 @@ t_accountAccessRecord = db.Table(
 
 class Branch(db.Model):
     __tablename__ = 'branch'
-    __table_args__ = (
-        db.Index('name_2', 'name', 'num'),
-    )
 
+    name = db.Column(db.String(15, 'utf8mb4_0900_ai_ci'), nullable=False, index=True)
     assets = db.Column(db.Float(15), nullable=False)
     city = db.Column(db.String(10, 'utf8mb4_0900_ai_ci'), nullable=False)
-    name = db.Column(db.String(15), nullable=False, index=True)
     num = db.Column(db.Integer, primary_key=True)
 
 
 class BranchStaff(db.Model):
     __tablename__ = 'branch_staff'
 
-    branchName = db.Column(db.ForeignKey('branch.name', ondelete='RESTRICT', onupdate='CASCADE'), primary_key=True, nullable=False)
-    staffID = db.Column(db.ForeignKey('sta.ID', ondelete='RESTRICT', onupdate='CASCADE'), primary_key=True, nullable=False, index=True)
+    branchName = db.Column(db.ForeignKey('branch.name'), primary_key=True, nullable=False)
+    staffID = db.Column(db.ForeignKey('sta.ID', ondelete='CASCADE', onupdate='CASCADE'), primary_key=True, nullable=False, index=True)
     employDate = db.Column(db.Date)
 
     branch = db.relationship('Branch', primaryjoin='BranchStaff.branchName == Branch.name', backref='branch_staffs')
     sta = db.relationship('Sta', primaryjoin='BranchStaff.staffID == Sta.ID', backref='branch_staffs')
+
+
+class CheckAccount(db.Model):
+    __tablename__ = 'check_account'
+
+    account = db.Column(db.BigInteger, primary_key=True)
+    overdraft = db.Column(db.Float(20))
+    openedDate = db.Column(db.Date)
+    balance = db.Column(db.Float(15))
+    latestVisitDate = db.Column(db.Date)
 
 
 class Client(db.Model):
@@ -55,7 +62,7 @@ class Client(db.Model):
     sta = db.relationship('Sta', primaryjoin='Client.staffID == Sta.ID', backref='clients')
 
 
-class ClientContact(Client):
+class ClientContact(db.Model):
     __tablename__ = 'clientContact'
 
     clientID = db.Column(db.ForeignKey('client.ID', ondelete='CASCADE', onupdate='CASCADE'), primary_key=True)
@@ -64,48 +71,29 @@ class ClientContact(Client):
     email = db.Column(db.String(50, 'utf8mb4_0900_ai_ci'))
     relation = db.Column(db.String(15, 'utf8mb4_0900_ai_ci'))
 
+    contact = db.relationship('Client', primaryjoin='ClientContact.clientID == Client.ID', backref='contacts')
+
 
 class ClientBranchCheckAccount(db.Model):
     __tablename__ = 'client_branch_check_account'
 
     clientID = db.Column(db.ForeignKey('client.ID', onupdate='CASCADE'), primary_key=True, nullable=False)
-    branchName = db.Column(db.ForeignKey('branch.name', onupdate='CASCADE'), primary_key=True, nullable=False, index=True)
-    checkAccount = db.Column(db.BigInteger, nullable=False, index=True)
+    branchNum = db.Column(db.ForeignKey('branch.num', ondelete='CASCADE'), primary_key=True, nullable=False, index=True)
+    checkAccount = db.Column(db.BigInteger, nullable=False, unique=True)
 
-    branch = db.relationship('Branch', primaryjoin='ClientBranchCheckAccount.branchName == Branch.name', backref='client_branch_check_accounts')
+    branch = db.relationship('Branch', primaryjoin='ClientBranchCheckAccount.branchNum == Branch.num', backref='client_branch_check_accounts')
     client = db.relationship('Client', primaryjoin='ClientBranchCheckAccount.clientID == Client.ID', backref='client_branch_check_accounts')
-
-
-class CheckAccount(ClientBranchCheckAccount):
-    __tablename__ = 'check_account'
-
-    account = db.Column(db.ForeignKey('client_branch_check_account.checkAccount', ondelete='CASCADE'), primary_key=True)
-    overdraft = db.Column(db.Float(20))
-    openedDate = db.Column(db.Date)
-    balance = db.Column(db.Float(15))
-    latestVisitDate = db.Column(db.Date)
 
 
 class ClientBranchSavingsAccount(db.Model):
     __tablename__ = 'client_branch_savings_account'
 
     clientID = db.Column(db.ForeignKey('client.ID', ondelete='RESTRICT', onupdate='CASCADE'), primary_key=True, nullable=False, index=True)
-    branchName = db.Column(db.ForeignKey('branch.name', onupdate='CASCADE'), primary_key=True, nullable=False, index=True)
-    savingsAccount = db.Column(db.BigInteger, nullable=False, index=True)
+    branchNum = db.Column(db.ForeignKey('branch.num', ondelete='RESTRICT', onupdate='CASCADE'), primary_key=True, nullable=False, index=True)
+    savingsAccount = db.Column(db.BigInteger, nullable=False, unique=True)
 
-    branch = db.relationship('Branch', primaryjoin='ClientBranchSavingsAccount.branchName == Branch.name', backref='client_branch_savings_accounts')
+    branch = db.relationship('Branch', primaryjoin='ClientBranchSavingsAccount.branchNum == Branch.num', backref='client_branch_savings_accounts')
     client = db.relationship('Client', primaryjoin='ClientBranchSavingsAccount.clientID == Client.ID', backref='client_branch_savings_accounts')
-
-
-class SavingsAccount(ClientBranchSavingsAccount):
-    __tablename__ = 'savings_account'
-
-    account = db.Column(db.ForeignKey('client_branch_savings_account.savingsAccount', ondelete='CASCADE', onupdate='RESTRICT'), primary_key=True)
-    interestRate = db.Column(db.Float(20))
-    currencyType = db.Column(db.String(10, 'utf8mb4_0900_ai_ci'))
-    openedDate = db.Column(db.Date)
-    balance = db.Column(db.Float(15))
-    latestVisitDate = db.Column(db.Date)
 
 
 class Depart(db.Model):
@@ -119,7 +107,7 @@ class Depart(db.Model):
 class Loan(db.Model):
     __tablename__ = 'loan'
 
-    loanNum = db.Column(db.String(10, 'utf8mb4_0900_ai_ci'), primary_key=True)
+    loanNum = db.Column(db.Integer, primary_key=True)
     branchName = db.Column(db.ForeignKey('branch.name', ondelete='RESTRICT', onupdate='CASCADE'), nullable=False, index=True)
     loanAmount = db.Column(db.Float(15), nullable=False)
     status = db.Column(db.Integer, nullable=False, server_default=db.FetchedValue())
@@ -135,6 +123,17 @@ t_loan_to_client = db.Table(
     db.Column('date', db.Date),
     db.Column('amount', db.Float(15))
 )
+
+
+class SavingsAccount(db.Model):
+    __tablename__ = 'savings_account'
+
+    account = db.Column(db.BigInteger, primary_key=True)
+    interestRate = db.Column(db.Float(20))
+    currencyType = db.Column(db.String(10, 'utf8mb4_0900_ai_ci'))
+    openedDate = db.Column(db.Date)
+    balance = db.Column(db.Float(15))
+    latestVisitDate = db.Column(db.Date)
 
 
 class Sta(db.Model):

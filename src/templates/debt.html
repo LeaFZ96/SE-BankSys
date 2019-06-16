@@ -48,9 +48,49 @@
 
     function closewForm() {
       document.getElementById("deleteWarning").style.display = "none";
-    } 
+    }
+
+    function dochange() {
+      var ele = document.getElementById("selectshow");
+      if (ele.children[0].value == 1) {
+        td1.style.display = "block";
+        td2.style.display = "none";
+        td3.style.display = "none";
+        td4.style.display = "none";
+        td5.style.display = "none";
+      }
+      if (ele.children[0].value == 2) {
+        td1.style.display = "none";
+        td2.style.display = "list-item";
+        td3.style.display = "none";
+        td4.style.display = "none";
+        td5.style.display = "none";
+      }
+      if (ele.children[0].value == 3) {
+        td1.style.display = "none";
+        td2.style.display = "none";
+        td3.style.display = "list-item";
+        td4.style.display = "none";
+        td5.style.display = "none";
+      }
+      if (ele.children[0].value == 4) {
+        td1.style.display = "none";
+        td2.style.display = "none";
+        td3.style.display = "none";
+        td4.style.display = "list-item";
+        td5.style.display = "none";
+      }
+      if (ele.children[0].value == 5) {
+        td1.style.display = "none";
+        td2.style.display = "none";
+        td3.style.display = "none";
+        td4.style.display = "none";
+        td5.style.display = "list-item";
+      }
+    }
   </script>
 </head>
+
 <div class="form-popup" id="updateForm">
   <form class="form-container">
     <h1>更新表单</h1>
@@ -178,6 +218,88 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="card">
+            <div class="insert-container">
+
+              <form class="form-insert">
+
+                <input type="text" placeholder="贷款账户" name="acc" required>
+
+                <input type="text" placeholder="支行名" name="name" required>
+
+                <input type="text" placeholder="贷款金额" name="money" required>
+
+                <input type="text" placeholder="建立日期" name="date" required>
+
+                <input type="text" placeholder="状态" name="state" required>
+                <button class="btn bg-warning" type="submit">添加</button>
+              </form>
+            </div>
+          </div>
+
+          <div class="card" id="selectshow">
+            <select name="selectedname" onchange="dochange()">
+              {% for i in content2 %}
+              <option value="{{i[0][0]}}"> {{ i[0][0] }} </option>
+              {% endfor %}
+            </select>
+
+            <table>
+              {% for i in content2 %}
+              <tr id="td{{i[0][0]}}" style="display:'list-item'">
+                <tr>
+                  {% for j in labels2 %}
+                  <th> {{ j }} </th>
+                  {% endfor %}
+                </tr>
+                {% for k in i %}
+                <tr>
+                  {% for m in k %}
+                  <td> {{ m }} </td> 
+                  {% endfor %}
+                </tr>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+
+              <tr id="td2" style="display:none">
+
+                <td height="20" align="center" bgcolor="#CCFF00">显示2的内容
+
+                  <textarea name="textarea"></textarea></td>
+
+              </tr>
+
+
+              <tr id="td3" style="display:none">
+
+                <td height="20" align="center" bgcolor="#996600">显示3的内容
+
+                  <input type="checkbox" name="checkbox" value="checkbox">
+
+                  <input type="checkbox" name="checkbox" value="checkbox"></td>
+
+              </tr>
+
+              <tr id="td4" style="display:none">
+
+                <td height="20" align="center" bgcolor="#CC99CC">显示4的内容
+
+                  <input type="radio" name="radiobutton" value="radiobutton">
+
+                  <input type="radio" name="radiobutton" value="radiobutton"></td>
+
+              </tr>
+
+              <tr id="td5" style="display:none">
+
+                <td height="20" align="center" bgcolor="#66CCFF">显示5的内容
+
+                  <input type="submit" name="Submit" value="提交"></td>
+
+              </tr>
+            </table>
           </div>
         </div>
     </main>

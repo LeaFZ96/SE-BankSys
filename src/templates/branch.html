@@ -6,7 +6,6 @@
 * Copyright (c) 2018 creativeLabs Łukasz Holeczek
 * Licensed under MIT (https://coreui.io/license)
 -->
-
 <html lang="en">
 
 <head>
@@ -186,8 +185,27 @@
                     </tr>
                     {% endfor %}
                   </table>
+                  </div>
                 </div>
               </div>
+            </div>
+            <div class="card">
+            <div class="insert-container">
+                  <form class="form-insert" method="POST">
+
+                    <input type="hidden" name="type" value="insert">
+                      
+                    <input type="text" placeholder="支行名" name="name" required>
+
+                    
+                    <input type="text" placeholder="支行资产" name="estate" required>
+
+                    
+                    <input type="text" placeholder="所在城市" name="city" required>
+
+                    <button class="btn btn-warning" type="submit">添加</button>
+
+                  </form>
             </div>
           </div>
         </div>

@@ -4,7 +4,7 @@ import config
 import numpy as np
 import datetime
 from db_init import db
-from models import Branch, Client, Sta, SavingsAccount, CheckAccount, Loan, ClientBranchSavingsAccount, ClientBranchCheckAccount
+from models import Branch, Client, Sta, SavingsAccount, CheckAccount, Loan, ClientBranchSavingsAccount, ClientBranchCheckAccount, ClientContact, BranchStaff, t_loan_to_client
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -61,8 +61,22 @@ def branch():
         elif request.form.get('type') == 'delete':
             old_num = request.form.get('key')
             branch_result = db.session.query(
-                Branch).filter_by(name=old_num).first()
+                Branch).filter_by(num=old_num).first()
             db.session.delete(branch_result)
+            db.session.commit()
+
+        elif request.form.get('type') == 'insert':
+            branch_name = request.form.get('name')
+            branch_asset = request.form.get('estate')
+            branch_city = request.form.get('city')
+
+            newBranch = Branch(
+                name = branch_name,
+                assets = branch_asset,
+                city = branch_city
+            )
+
+            db.session.add(newBranch)
             db.session.commit()
 
     result = db.session.query(Branch).all()
@@ -72,28 +86,145 @@ def branch():
 
 @app.route('/client', methods=['GET', 'POST'])
 def client():
-    labels = ['客户ID', '客户姓名', '客户电话', '客户地址', '负责员工ID']
-    result = Client.query.all()
+    labels = ['客户ID', '客户姓名', '客户电话', '客户地址', '负责员工ID', '联系人姓名', '联系人手机', '联系人邮箱', '与客户关系']
+    result = db.session.query(Client, ClientContact).filter(Client.ID == ClientContact.clientID).all()
+
+    if request.method == 'GET':
+        return render_template('client.html', labels=labels, content=result)
+    else:
+        if request.form.get('type') == 'update':
+            clientID = request.form.get('key')
+            # 更新还没做
+        elif request.form.get('type') == 'delete':
+            clientID = request.form.get('key')
+            client_result = db.session.query(Client).filter_by(ID=clientID).first()
+            clientContact_result = db.session.query(ClientContact).filter_by(clientID=clientID).first()
+
+            db.session.delete(clientContact_result)
+            db.session.delete(client_result)
+            db.session.commit()
+            # 删除无效
+
+        elif request.form.get('type') == 'insert':
+            clientID = request.form.get('clientID')
+            clientName = request.form.get('name')
+            clientPhone = request.form.get('phone')
+            clientAddress = request.form.get('address')
+            staffID = request.form.get('staffID')
+            cname = request.form.get('cname')
+            cphone = request.form.get('cphone')
+            cemail = request.form.get('cemail')
+            crelation = request.form.get('crelation')
+            
+            newClient = Client(
+                ID = clientID,
+                staffID = staffID,
+                name = clientName,
+                phone = clientPhone,
+                address = clientAddress
+            )
+
+            newContact = ClientContact(
+                clientID = clientID,
+                name = cname,
+                phone = cphone,
+                email = cemail,
+                relation = crelation
+            )
+
+            db.session.add(newClient)
+            db.session.add(newContact)
+            db.session.commit()
+
+
+    result = db.session.query(Client, ClientContact).filter(Client.ID == ClientContact.clientID).all()
+    
     return render_template('client.html', labels=labels, content=result)
 
 
 @app.route('/staff', methods=['GET', 'POST'])
 def staff():
-    labels = ['员工ID', '部门号', '员工姓名', '员工电话', '员工地址', '员工职位']
-    result = Sta.query.all()
+    labels = ['员工ID', '所在支行', '部门号', '员工姓名', '员工电话', '员工地址', '员工职位', '雇佣日期']
+    result = db.session.query(Sta, BranchStaff).filter(Sta.ID == BranchStaff.staffID).all()
+
+    if request.method == 'GET':
+        return render_template('staff.html', labels=labels, content=result)
+    else:
+        if request.form.get('type') == 'update':
+            oldID = request.form.get('key')
+            departNum = request.form.get('departNum')
+            phone = request.form.get('phone')
+            address = request.form.get('address')
+            position = request.form.get('position')
+
+            staff_result = db.session.query(Sta).filter_by(ID=oldID).first()
+
+            staff_result.departNum = departNum
+            staff_result.telephone = phone
+            staff_result.address = address
+            staff_result.position = position
+
+            db.session.commit()
+
+        elif request.form.get('type') == 'delete':
+            oldID = request.form.get('key')
+
+            staff_result = db.session.query(Sta).filter_by(ID=oldID).first()
+            branchStaff_result = db.session.query(BranchStaff).filter_by(staffID=oldID).first()
+
+            db.session.delete(branchStaff_result)
+            db.session.delete(staff_result)
+            db.session.commit()
+        
+        elif request.form.get('type') == 'insert':
+            ID = request.form.get('staffID')
+            branch = request.form.get('branch')
+            departNum = request.form.get('departNum')
+            name = request.form.get('name')
+            phone = request.form.get('phone')
+            address = request.form.get('address')
+            position = request.form.get('position')
+            date = request.form.get('date')
+
+            date = date.split('-')
+            date = datetime.date(
+                int(date[0]), int(date[1]), int(date[2]))
+
+            newStaff = Sta(
+                ID = ID,
+                departNum = departNum,
+                name = name,
+                telephone = phone,
+                address = address,
+                position = position
+            )
+
+            newStaffBranch = BranchStaff(
+                branchName = branch,
+                staffID = ID,
+                employDate = date
+            )
+
+            db.session.add(newStaff)
+            db.session.add(newStaffBranch)
+            db.session.commit()
+        
+    result = db.session.query(Sta, BranchStaff).filter(Sta.ID == BranchStaff.staffID).all()
+
     return render_template('staff.html', labels=labels, content=result)
 
 
 @app.route('/account', methods=['GET', 'POST'])
 def account():
-    labels1 = ['账户号', '客户ID', '客户姓名', '开户支行',
+    labels1 = ['账户号', '客户ID', '客户姓名', '开户支行号', '开户支行名',
                '开户时间', '账户余额', '最近访问时间', '利率', '货币类型']
-    labels2 = ['账户号', '客户ID', '客户姓名', '开户支行', '开户时间', '账户余额', '最近访问时间', '透支额度']
+    labels2 = ['账户号', '客户ID', '客户姓名', '开户支行号',
+               '开户支行名', '开户时间', '账户余额', '最近访问时间', '透支额度']
 
-    content1 = db.session.query(SavingsAccount, ClientBranchSavingsAccount, Client).filter(
-        SavingsAccount.account == ClientBranchSavingsAccount.savingsAccount).filter(ClientBranchSavingsAccount.clientID == Client.ID).all()
-    content2 = db.session.query(CheckAccount, ClientBranchCheckAccount, Client).filter(
-        CheckAccount.account == ClientBranchCheckAccount.checkAccount).filter(ClientBranchCheckAccount.clientID == Client.ID).all()
+    content1 = db.session.query(SavingsAccount, ClientBranchSavingsAccount, Client, Branch).filter(
+        SavingsAccount.account == ClientBranchSavingsAccount.savingsAccount).filter(ClientBranchSavingsAccount.clientID == Client.ID).filter(Branch.num == ClientBranchSavingsAccount.branchNum).all()
+    content2 = db.session.query(CheckAccount, ClientBranchCheckAccount, Client, Branch).filter(
+        CheckAccount.account == ClientBranchCheckAccount.checkAccount).filter(ClientBranchCheckAccount.clientID == Client.ID).filter(Branch.num == ClientBranchCheckAccount.branchNum).all()
 
     if request.method == 'GET':
 
@@ -117,7 +248,8 @@ def account():
             # 客户不存在要报错，客户添加再客户管理页面处理
 
             openDate = openDate.split('-')
-            openDate = datetime.date(int(openDate[0]), int(openDate[1]), int(openDate[2]))
+            openDate = datetime.date(
+                int(openDate[0]), int(openDate[1]), int(openDate[2]))
             clientID = int(clientID)
             balance = float(balance)
             interestRate = float(interestRate)
@@ -127,63 +259,105 @@ def account():
                 # client_branch_account 表中存储账户和支票账户是否存在检查
                 newClientBranch = ClientBranchSavingsAccount(
                     clientID=clientID,
-                    branchNum=branchNum,
-                    savingsAccount=accStr
+                    branchNum=branchNum
                 )
             else:
                 newClientBranch = ClientBranchCheckAccount(
                     clientID=clientID,
-                    branchNum=branchNum,
-                    checkAccount=accStr
+                    branchNum=branchNum
                 )
             db.session.add(newClientBranch)
             db.session.commit()
-            
+
             if accType == 'saving':
                 newAccount = SavingsAccount(
-                    openDate=openDate,
+                    openedDate=openDate,
                     balance=balance,
                     latestVisitDate=openDate,
                     interestRate=interestRate,
                     currencyType=currType
                 )
                 newAccount.account = newClientBranch.savingsAccount
-                db.session.add(newAccount)
-                db.session.commit()
+
             else:
                 newAccount = CheckAccount(
-                    account=accStr,
                     openedDate=openDate,
                     balance=balance,
                     latestVisitDate=openDate,
                     overdraft=overDraft
                 )
-                db.session.add(newAccount)
-                db.session.commit()
-            
+                newAccount.account = newClientBranch.checkAccount
 
-            content1 = db.session.query(SavingsAccount, ClientBranchAccount, Client).filter(
-                SavingsAccount.account == ClientBranchAccount.savingsAccount).filter(ClientBranchAccount.clientID == Client.ID).all()
-            content2 = db.session.query(CheckAccount, ClientBranchAccount, Client).filter(
-                CheckAccount.account == ClientBranchAccount.checkAccount).filter(ClientBranchAccount.clientID == Client.ID).all()
-
-            return render_template('account.html', labels1=labels1, labels2=labels2, content1=content1, content2=content2)
+            db.session.add(newAccount)
+            db.session.commit()
 
         elif request.form.get('type') == 'supdate':
             oldAccount = request.form.get('key')
-            openDate = request.form.get('sOpenDate')
             balance = request.form.get('sBalance')
             latestDate = request.form.get('sLatest')
             interestRate = request.form.get('sInterest')
             currType = request.form.get('sCType')
+
+            account_result = db.session.query(
+                SavingsAccount).filter_by(account=oldAccount).first()
+
+            latestDate = latestDate.split('-')
+            latestDate = datetime.date(
+                int(latestDate[0]), int(latestDate[1]), int(latestDate[2]))
+            # 交易记录表
+            var_balance = float(balance) - account_result.balance
+            account_result.balance = balance
+            account_result.latestVisitDate = latestDate
+            account_result.interestRate = interestRate
+            account_result.currencyType = currType
+            db.session.commit()
+
         elif request.form.get('type') == 'cupdate':
             oldAccount = request.form.get('key')
-            openDate = request.form.get('cOpenDate')
             balance = request.form.get('cBalance')
             latestDate = request.form.get('cLatest')
             overDraft = request.form.get('cOver')
+
+            account_result = db.session.query(
+                CheckAccount).filter_by(account=oldAccount).first()
+
+            latestDate = latestDate.split('-')
+            latestDate = datetime.date(
+                int(latestDate[0]), int(latestDate[1]), int(latestDate[2]))
+
+            # 交易记录表
+            var_balance = float(balance) - account_result.balance
+            account_result.balance = balance
+            account_result.latestVisitDate = latestDate
+            account_result.overdraft = overDraft
+            db.session.commit()
+
         elif request.form.get('type') == 'delete':
             oldAccount = request.form.get('key')
+            accType = request.form.get('accType')
+
+            if accType == 'saving':
+                account_result = db.session.query(
+                    SavingsAccount).filter_by(account=oldAccount).first()
+                accountClient_result = db.session.query(
+                    ClientBranchSavingsAccount).filter_by(savingsAccount=oldAccount).first()
+                db.session.delete(account_result)
+                db.session.delete(accountClient_result)
+                db.session.commit()
+
+            else:
+                account_result = db.session.query(
+                    CheckAccount).filter_by(account=oldAccount).first()
+                accountClient_result = db.session.query(
+                    ClientBranchCheckAccount).filter_by(checkAccount=oldAccount).first()
+                db.session.delete(account_result)
+                db.session.delete(accountClient_result)
+                db.session.commit()
+
+    content1 = db.session.query(SavingsAccount, ClientBranchSavingsAccount, Client, Branch).filter(
+        SavingsAccount.account == ClientBranchSavingsAccount.savingsAccount).filter(ClientBranchSavingsAccount.clientID == Client.ID).filter(Branch.num == ClientBranchSavingsAccount.branchNum).all()
+    content2 = db.session.query(CheckAccount, ClientBranchCheckAccount, Client, Branch).filter(
+        CheckAccount.account == ClientBranchCheckAccount.checkAccount).filter(ClientBranchCheckAccount.clientID == Client.ID).filter(Branch.num == ClientBranchCheckAccount.branchNum).all()
 
     return render_template('account.html', labels1=labels1, labels2=labels2, content1=content1, content2=content2)
 
@@ -192,7 +366,12 @@ def account():
 def debt():
     labels = ['贷款号', '支行', '贷款金额', '贷款状态', '建立日期']
     content = Loan.query.all()
-    return render_template('debt.html', labels=labels, content=content)
+    labels2 = ['贷款号', '客户ID', '发放日期', '发放金额']
+    result = []
+    for i in content:
+        result.append(db.session.query(t_loan_to_client).filter_by(loanNum=i.loanNum).all())
+
+    return render_template('debt.html', labels=labels, content=content, labels2=labels2, content2=result)
 
 
 @app.route('/statistics', methods=['GET', 'POST'])

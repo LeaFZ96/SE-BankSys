@@ -35,16 +35,18 @@
         }
       }
     }
-    function openForm() {
+    function openForm(key) {
       document.getElementById("updateForm").style.display = "block";
+      update_form.key.value = key;
     }
 
     function closeForm() {
       document.getElementById("updateForm").style.display = "none";
     }
 
-    function openwForm() {
+    function openwForm(key) {
       document.getElementById("deleteWarning").style.display = "block";
+      delete_form.key.value = key;
     }
 
     function closewForm() {
@@ -54,30 +56,50 @@
 </head>
 
 <div class="form-popup" id="updateForm">
-  <form class="form-container">
+  <form class="form-container" name="update_form" method="POST">
     <h1>更新表单</h1>
 
-    <label for="email"><b>客户id</b></label>
-    <input type="text" placeholder="客户id" name="客户id" required>
+    <input type="hidden" name="type" value="update">
 
-    <label for="email"><b>客户电话</b></label>
-    <input type="text" placeholder="客户电话" name="客户电话" required>
+    <input type="hidden" name="key" value="">
 
-    <label for="email"><b>客户地址</b></label>
-    <input type="text" placeholder="客户地址" name="客户地址" required>
+    
+    <input type="text" placeholder="客户姓名" name="name" required>
 
-    <label for="email"><b>员工id</b></label>
-    <input type="text" placeholder="员工id" name="员工id" required>
+    
+    <input type="text" placeholder="客户电话" name="phone" required>
+
+    
+    <input type="text" placeholder="客户地址" name="address" required>
+
+    
+    <input type="text" placeholder="员工ID" name="staffId" required>
+
+    
+    <input type="text" placeholder="联系人姓名" name="cname" required>
+
+    
+    <input type="text" placeholder="联系人电话" name="cphone" required>
+
+    
+    <input type="text" placeholder="联系人邮箱" name="cemail" required>
+
+    
+    <input type="text" placeholder="联系人关系" name="crelation" required>
+
 
     <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
-    <button type="button" class="btn bg-danger" onclick="closeForm()">取消</button
-
+    <button type="button" class="btn bg-danger" onclick="closeForm()">取消</button>
   </form>
 </div>
 
 <div class="form-popup" id="deleteWarning">
-  <form class="form-container">
+  <form class="form-container" name="delete_form" method="POST">
     <h4>确认删除吗？</h4>
+
+    <input type="hidden" name="type" value="delete">
+
+    <input type="hidden" name="key" value="">
 
     <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
     <button type="button" class="btn bg-danger" onclick="closewForm();">取消</button>
@@ -163,22 +185,58 @@
                     </tr>
 
                     {% for i in content %}
-                    <tr id="{{ i.ID }}">
-                      <td> {{ i.ID }} </td>
-                      <td> {{ i.name }} </td>
-                      <td> {{ i.phone }} </td>
-                      <td> {{ i.address }} </td>
-                      <td> {{ i.staffID }} </td>
+                    <tr id="{{ i[0].ID }}">
+                      <td> {{ i[0].ID }} </td>
+                      <td> {{ i[0].name }} </td>
+                      <td> {{ i[0].phone }} </td>
+                      <td> {{ i[0].address }} </td>
+                      <td> {{ i[0].staffID }} </td>
+                      <td> {{ i[1].name }} </td>
+                      <td> {{ i[1].phone }} </td>
+                      <td> {{ i[1].email }} </td>
+                      <td> {{ i[1].relation }} </td>
                       <td>
-                        <label class="btn btn-success" onclick="openForm()">更新</label>
-                        <label class="btn bg-danger" onclick="openwForm()">删除</label>
+                        <label class="btn btn-success" onclick="openForm(this.parentNode.parentNode.id)">更新</label>
+                        <label class="btn bg-danger" onclick="openwForm(this.parentNode.parentNode.id)">删除</label>
                       </td>
                     </tr>
                     {% endfor %}
 
                   </table>
+    
+                  </div>
                 </div>
               </div>
+            </div>
+            <div class="card">
+            <div class="insert-container">
+                  <form class="form-insert" method="POST">
+                            
+                    <input type="hidden" name="type" value="insert">
+                    
+                    <input type="text" placeholder="客户ID
+                    " name="clientID" required>
+                
+                    <input type="text" placeholder="客户姓名
+                    " name="name" required>
+                    
+                    <input type="text" placeholder="客户电话" name="phone" required>
+                                    
+                    <input type="text" placeholder="客户地址" name="address" required>
+                    
+                    <input type="text" placeholder="员工id" name="staffID" required><br>
+
+                    <input type="text" placeholder="联系人姓名" name="cname" required>
+
+                    <input type="text" placeholder="联系人电话" name="cphone" required>
+
+                    <input type="text" placeholder="联系人邮箱" name="cemail" required>
+
+                    <input type="text" placeholder="联系人关系" name="crelation" required>
+
+                    <button class="btn bg-warning" type="submit">添加</button>
+              
+                  </form>
             </div>
           </div>
         </div>
