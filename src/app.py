@@ -364,12 +364,60 @@ def account():
 
 @app.route('/debt', methods=['GET', 'POST'])
 def debt():
-    labels = ['贷款号', '支行', '贷款金额', '贷款状态', '建立日期']
-    content = Loan.query.all()
+    labels = ['贷款号', '发放支行', '贷款金额', '贷款状态', '建立日期']
+    content = db.session.query(Loan).all()
     labels2 = ['贷款号', '客户ID', '发放日期', '发放金额']
     result = []
-    for i in content:
-        result.append(db.session.query(t_loan_to_client).filter_by(loanNum=i.loanNum).all())
+    #db.session.query(t_loan_to_client).filter_by(loanNum=i.loanNum).all()
+
+    if request.method == 'GET':
+        return render_template('debt.html', labels=labels, labels2=labels2, content=content, content2=result)
+    else:
+        if request.form.get('type') == 'update':
+            oldNum = request.form.get('key')
+            money = request.form.get('money')
+            state = request.form.get('state')
+
+            loan_result = db.session.query(Loan).filter_by(loanNum=oldNum).first()
+
+            loan_result.loanAmount = money
+            loan_result.status = state
+
+            db.session.commit()
+
+        elif request.form.get('type') == 'delete':
+            oldNum = request.form.get('key')
+            
+            loan_result = db.session.query(Loan).filter_by(loanNum=oldNum).first()
+            db.session.delete(loan_result)
+            db.session.commit()
+
+        elif request.form.get('type') == 'insert':
+            branch = request.form.get('branch')
+            money = request.form.get('money')
+            date = request.form.get('date')
+            state = request.form.get('state')
+
+            date = date.split('-')
+            date = datetime.date(
+                int(date[0]), int(date[1]), int(date[2]))
+            
+            newLoan = Loan(
+                branchName = branch,
+                loanAmount = money,
+                status = state,
+                createdDate = date
+            )
+
+            db.session.add(newLoan)
+            db.session.commit()
+        
+        elif request.form.get('type') == 'query':
+            loanNum = request.form.get('loanNum')
+            
+            result = db.session.query(t_loan_to_client).filter_by(loanNum=loanNum).all()
+
+    content = db.session.query(Loan).all()
 
     return render_template('debt.html', labels=labels, content=content, labels2=labels2, content2=result)
 
