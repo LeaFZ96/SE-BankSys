@@ -19,7 +19,9 @@
   <link href="vendors/pace-progress/css/pace.min.css" rel="stylesheet">
   <!-- Global site tag (gtag.js) - Google Analytics-->
   <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
+  <script src="jquery-3.4.0.min.js"></script>
   <!--<script src="../static/table.js"></script>-->
+
   <script>
     function tableFilter() {
       var input, filter, table, tr, td, i, txtValue;
@@ -39,8 +41,49 @@
         }
       }
     }
-    function openForm() {
+    function openForm(key) {
+
       document.getElementById("updateForm").style.display = "block";
+
+      var table_row = document.getElementById(key);
+      update_form = document.getElementById("updateForm")
+
+      //document.getElementById("num").innerHTML = "Paragraph changed!";
+
+      //update_form.style.display = "block";
+
+
+
+
+      //gets rows of table
+      //var rowLength = oTable.rows.length;
+
+      //loops through rows    
+      /*for (i = 0; i < rowLength; i++){
+
+        //gets cells of current row  
+        var oCells = oTable.rows.item(i).cells;
+
+        //gets amount of cells of current row
+        var cellLength = oCells.length;
+
+        //loops through each cell in current row
+        for(var j = 0; j < cellLength; j++){
+
+                // get your cell info here
+
+                var cellVal = oCells.item(j).innerHTML;
+                alert(cellVal);
+            }
+      }
+      
+      var update_form = document.getElementById("updateForm");
+      for(var i=0; i<table_row.length; i++)
+      {
+        table_row.innerHTML;
+      }*/
+
+
     }
 
     function closeForm() {
@@ -58,49 +101,6 @@
 </head>
 
 <<<<<<< HEAD
-<div class="form-popup" id="updateForm">
-  <form class="form-container">
-    <h1>更新表单</h1>
-
-    <label for="email"><b>支行号</b></label>
-    <input type="text" placeholder="支行号" name="支行号" required>
-
-    <label for="email"><b>支行名</b></label>
-    <input type="text" placeholder="支行名" name="支行名" required>
-
-    <label for="email"><b>支行资产</b></label>
-    <input type="text" placeholder="支行资产" name="支行资产" required>
-
-    <label for="email"><b>所在城市</b></label>
-    <input type="text" placeholder="所在城市" name="所在城市" required>
-
-    <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
-    <button type="button" class="btn bg-danger" onclick="closeForm()">取消</button>
-  </form>
-</div>
-
-<div class="form-popup" id="deleteWarning">
-  <form class="form-container">
-    <h4>确认删除吗？</h4>
-
-    <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
-    <button type="button" class="btn bg-danger" onclick="closewForm();">取消</button>
-  </form>
-</div>
-
-<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
-  <header class="app-header navbar">
-  </header>
-  <div class="app-body">
-    <div class="sidebar">
-      <nav class="sidebar-nav">
-        <ul class="nav">
-          <li class="nav-title">银行</li>
-          <a class="nav-link" href="index.html">
-            <i class="nav-icon icon-speedometer"></i> 首页
-          </a>
-          <li class="nav-title">统计</li>
-=======
   <div class="form-popup" id="deleteWarning">
     <form class="form-container">
       <h4>确认删除吗？</h4>
@@ -218,7 +218,53 @@
       </main>
       <aside class="aside-menu">
         <ul class="nav nav-tabs" role="tablist">
->>>>>>> 33bd1a7e18db77802923d2b16d26df3f38f3156e
+=======
+<div class="form-popup" id="updateForm">
+  <form class="form-container">
+    <h1>更新表单</h1>
+
+    <label id="num"><b>支行号</b></label>
+    <input type="text" placeholder="支行号" name="num" required>
+
+    <label id="name"><b>支行名</b></label>
+    <input type="text" placeholder="支行名" name="name" required>
+
+    <label id="estate"><b>支行资产</b></label>
+    <input type="text" placeholder="支行资产" name="estate" required>
+
+    <label id="city"><b>所在城市</b></label>
+    <input type="text" placeholder="所在城市" name="city" required>
+
+    <input type="hidden" id="Id" name="Id">
+    <input type="hidden" id="type" name="type">
+
+    <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
+    <button type="button" class="btn bg-danger" onclick="closeForm()">取消</button>
+  </form>
+</div>
+
+<div class="form-popup" id="deleteWarning">
+  <form class="form-container">
+    <h4>确认删除吗？</h4>
+
+    <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
+    <button type="button" class="btn bg-danger" onclick="closewForm();">取消</button>
+  </form>
+</div>
+
+<body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
+  <header class="app-header navbar">
+  </header>
+  <div class="app-body">
+    <div class="sidebar">
+      <nav class="sidebar-nav">
+        <ul class="nav">
+          <li class="nav-title">银行</li>
+          <a class="nav-link" href="index.html">
+            <i class="nav-icon icon-speedometer"></i> 首页
+          </a>
+          <li class="nav-title">统计</li>
+>>>>>>> 55a751a88f9cf16414680096c6a28b1112b00f51
           <li class="nav-item">
             <a class="nav-link" href="statistics.html">
               <i class="nav-icon icon-speedometer"></i> 业务统计
@@ -226,18 +272,19 @@
             </a>
           </li>
           <li class="nav-title">管理</li>
-          <li class="nav-item nav-dropdown">
-            <a class="nav-link nav-dropdown-toggle" href="branch.html">
-              <i class="nav-icon icon-puzzle"></i> 支行管理</a>
+          <a class="nav-link" href="branch.html">
+            <i class="nav-icon icon-pie-chart"></i> 支行管理</a>
           </li>
           <li class="nav-item nav-dropdown">
             <a class="nav-link nav-dropdown-toggle" href="staff.html">
               <i class="nav-icon icon-cursor"></i> 员工管理</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="client.html">
-              <i class="nav-icon icon-pie-chart"></i> 客户管理</a>
+          <li class="nav-item nav-dropdown">
+            <a class="nav-link nav-dropdown-toggle" href="client.html">
+              <i class="nav-icon icon-puzzle"></i> 客户管理</a>
           </li>
+
           <li class="nav-item nav-dropdown">
             <a class="nav-link nav-dropdown-toggle" href="account.html">
               <i class="nav-icon icon-star"></i> 账户管理</a>
@@ -250,7 +297,6 @@
       </nav>
       <button class="sidebar-minimizer brand-minimizer" type="button"></button>
     </div>
-
     <main class="main">
       <div class="container-fluid">
         <div class="animated fadeIn">
@@ -272,6 +318,7 @@
                 <div class="col-sm-5">
                   <div class="small text-muted">2019 6</div>
                   <h4 class="card-title mb-0">支行管理</h4>
+
                 </div>
               </div>
               <!-- /.row-->
@@ -280,25 +327,23 @@
                 <div>
                   <table id="bank-table">
                     <tr>
-                      <th>支行id</th>
                       <th>支行名</th>
                       <th>支行资产</th>
                       <th>所在城市</th>
-                      <th></th>
+                      <th>操作</th>
                     </tr>
 
-                    <tr>
-                      <td>b001</td>
+                    <tr id="b0001">
                       <td>望江路支行</td>
                       <td>1000</td>
                       <td>合肥</td>
                       <td>
-                        <label class="btn btn-success" onclick="openForm()">更新</label>
-                        <label class="btn bg-danger" onclick="openwForm()">删除</label>
+                        <label id="update_b0001" class="btn btn-success"
+                          onclick="openForm(this.parentNode.parentNode.id)">更新</label>
+                        <label class="btn bg-danger" onclick="openForm()">删除</label>
                       </td>
                     </tr>
                     <tr>
-                      <td>b002</td>
                       <td>东至路支行</td>
                       <td>10024</td>
                       <td>合肥</td>
@@ -308,6 +353,21 @@
                       </td>
                     </tr>
                   </table>
+                  <span>
+                    <form>
+                      <label id="name"><b>支行名</b></label>
+                      <input type="text" placeholder="支行名" name="name" required>
+
+                      <label id="estate"><b>支行资产</b></label>
+                      <input type="text" placeholder="支行资产" name="estate" required>
+
+                      <label id="city"><b>所在城市</b></label>
+                      <input type="text" placeholder="所在城市" name="city" required>
+
+                      <button class="bg-warning" type="submit">添加</button>
+
+                    </form>
+                  </span>
                 </div>
               </div>
             </div>
@@ -337,30 +397,10 @@
 
     </aside>
   </div>
-  <footer class="app-footer">
-    <div>
-      <a href="https://coreui.io">CoreUI</a>
-      <span>&copy; 2018 creativeLabs.</span>
-    </div>
-<<<<<<< HEAD
-    <div class="ml-auto">
-      <span>Powered by</span>
-      <a href="https://coreui.io">CoreUI</a>
-    </div>
-  </footer>
 </body>
 
-=======
-    <footer class="app-footer">
-      <div>
-        <a href="https://coreui.io">CoreUI</a>
-        <span>&copy; 2018 creativeLabs.</span>
-      </div>
-      <div class="ml-auto">
-        <span>Powered by</span>
-        <a href="https://coreui.io">CoreUI</a>
-      </div>
-    </footer>
-  </body>
->>>>>>> 33bd1a7e18db77802923d2b16d26df3f38f3156e
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 55a751a88f9cf16414680096c6a28b1112b00f51

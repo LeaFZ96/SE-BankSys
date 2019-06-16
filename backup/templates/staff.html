@@ -58,23 +58,23 @@
     <form class="form-container">
       <h1>更新表单</h1>
   
-      <label for="email"><b>员工id</b></label>
-      <input type="text" placeholder="员工id" name="员工id" required>
+      <label for="id"><b>员工id</b></label>
+      <input type="text" placeholder="员工id" name="id" required>
   
-      <label for="email"><b>部门号</b></label>
-      <input type="text" placeholder="部门号" name="部门号" required>
+      <label for="depart"><b>部门号</b></label>
+      <input type="text" placeholder="部门号" name="depart" required>
   
-      <label for="email"><b>员工姓名</b></label>
-      <input type="text" placeholder="员工姓名" name="员工姓名" required>
+      <label for="name"><b>员工姓名</b></label>
+      <input type="text" placeholder="员工姓名" name="name" required>
 
-      <label for="email"><b>员工电话</b></label>
-      <input type="text" placeholder="员工电话" name="员工电话" required>
+      <label for="tel"><b>员工电话</b></label>
+      <input type="text" placeholder="员工电话" name="tel" required>
 
-      <label for="email"><b>员工地址</b></label>
-      <input type="text" placeholder="员工地址" name="员工地址" required>
+      <label for="addr"><b>员工地址</b></label>
+      <input type="text" placeholder="员工地址" name="addr" required>
 
-      <label for="email"><b>员工职位</b></label>
-      <input type="text" placeholder="员工职位" name="员工职位" required>
+      <label for="pos"><b>员工职位</b></label>
+      <input type="text" placeholder="员工职位" name="pos" required>
 
       <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
       <button type="button" class="btn bg-danger" onclick="closeForm()">取消</button>
@@ -196,6 +196,26 @@
                               <label class="btn bg-danger" onclick="openwForm()">删除</label>
                             </tr>
                         </table>
+                        <form>
+                            <label for="id"><b>员工id</b></label>
+                            <input type="text" placeholder="员工id" name="id" required>
+                        
+                            <label for="depart"><b>部门号</b></label>
+                            <input type="text" placeholder="部门号" name="depart" required>
+                        
+                            <label for="name"><b>员工姓名</b></label>
+                            <input type="text" placeholder="员工姓名" name="name" required>
+                      
+                            <label for="tel"><b>员工电话</b></label>
+                            <input type="text" placeholder="员工电话" name="tel" required>
+                      
+                            <label for="addr"><b>员工地址</b></label>
+                            <input type="text" placeholder="员工地址" name="addr" required>
+                      
+                            <label for="pos"><b>员工职位</b></label>
+                            <input type="text" placeholder="员工职位" name="pos" required>
+                            <button class="bg-warning" type="submit">添加</button>
+                        </form>
                     </div>
                 </div>
               </div>

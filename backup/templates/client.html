@@ -58,17 +58,20 @@
     <form class="form-container">
       <h1>更新表单</h1>
   
-      <label for="email"><b>客户id</b></label>
+      <label for="id"><b>客户id</b></label>
       <input type="text" placeholder="客户id" name="客户id" required>
   
-      <label for="email"><b>客户电话</b></label>
+      <label for="tel"><b>客户电话</b></label>
       <input type="text" placeholder="客户电话" name="客户电话" required>
   
-      <label for="email"><b>客户地址</b></label>
+      <label for="address"><b>客户地址</b></label>
       <input type="text" placeholder="客户地址" name="客户地址" required>
 
-      <label for="email"><b>员工id</b></label>
+      <label for="staffid"><b>员工id</b></label>
       <input type="text" placeholder="员工id" name="员工id" required>
+
+      <button type="submit" class="btn btn-success" value="Refresh Page" onClick="window.location.reload();">确认</button>
+      <button type="button" class="btn bg-danger" onclick="closeForm();">取消</button>
 
     </form>
   </div>
@@ -148,6 +151,7 @@
                     <h4 class="card-title mb-0">客户管理</h4>
                   </div>
                 </div>
+                
                 <!-- /.row-->
                 <div>
                       <!--Here comes our table!-->
@@ -173,6 +177,21 @@
                               <label class="btn bg-danger" onclick="openwForm()">删除</label>
                             </tr>
                         </table>
+                        <form>
+                            <label for="id"><b>客户id</b></label>
+                            <input type="text" placeholder="客户id" name="客户id" required>
+                        
+                            <label for="tel"><b>客户电话</b></label>
+                            <input type="text" placeholder="客户电话" name="客户电话" required>
+                        
+                            <label for="address"><b>客户地址</b></label>
+                            <input type="text" placeholder="客户地址" name="客户地址" required>
+                      
+                            <label for="staffid"><b>员工id</b></label>
+                            <input type="text" placeholder="员工id" name="员工id" required>
+                            <button class="bg-warning" type="submit">添加</button>
+                      
+                          </form>
                     </div>
                 </div>
               </div>
