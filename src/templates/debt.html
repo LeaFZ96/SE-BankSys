@@ -225,6 +225,24 @@
               {% endfor %}
             </table>
           </div>
+
+          <div class="card">
+              <div class="insert-container">
+                <form class="form-insert" method="POST">
+                  <input type="hidden" name="type" value="give">
+  
+                  <input type="text" placeholder="待发放贷款号" name="loanNum" required>
+
+                  <input type="text" placeholder="发放客户ID" name="clientID" required>
+
+                  <input type="text" placeholder="发放日期" name="date" required>
+
+                  <input type="text" placeholder="发放金额" name="money" required>
+  
+                  <button class="btn bg-warning" type="submit">发放</button>
+                </form>
+              </div>
+
         </div>
     </main>
     <aside class="aside-menu">
