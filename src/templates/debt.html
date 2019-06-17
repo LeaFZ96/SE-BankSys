@@ -154,6 +154,22 @@
               <!-- /.row-->
               <div>
                 <!--Here comes our table!-->
+                <div class="insert-container">
+                  <form class="form-insert" method="POST">
+                    <input type="hidden" name="type" value="main_query">
+
+                    <input type="text" placeholder="贷款号" name="num">
+    
+                    <input type="text" placeholder="发放支行" name="branch">
+    
+                    <input type="text" placeholder="贷款金额" name="money">
+    
+                    <input type="text" placeholder="建立日期" name="date">
+    
+                    <input type="text" placeholder="贷款状态" name="state">
+                    <button class="btn bg-warning" type="submit">查询</button>
+                  </form>
+                </div>
                 <div>
                   <table id="bank-table">
                     <tr>

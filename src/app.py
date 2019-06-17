@@ -42,11 +42,31 @@ def add_user():
 @app.route('/branch', methods=['GET', 'POST'])
 def branch():
     labels = ['支行编号', '支行名', '支行资产', '所在城市']
-    result = db.session.query(Branch).all()
+    result_query = db.session.query(Branch)
+    result = result_query.all()
     if request.method == 'GET':
         return render_template('branch.html', labels=labels, content=result)
     else:
-        if request.form.get('type') == 'update':
+        if request.form.get('type') == 'query':
+            branch_num = request.form.get('branchNum')
+            branch_name = request.form.get('name')
+            branch_asset = request.form.get('estate')
+            branch_city = request.form.get('city')
+
+            if branch_num != "":
+                result_query = result_query.filter(Branch.num == branch_num)
+            if branch_name != "":
+                result_query = result_query.filter(Branch.name == branch_name)
+            if branch_asset != "":
+                result_query = result_query.filter(Branch.assets == branch_asset)
+            if branch_city != "":
+                result_query = result_query.filter(Branch.city == branch_city)
+            
+            result = result_query.all()
+
+            return render_template('branch.html', labels=labels, content=result)
+            
+        elif request.form.get('type') == 'update':
             old_num = request.form.get('key')
             branch_name = request.form.get('branch_name')
             branch_asset = request.form.get('branch_asset')
@@ -180,12 +200,47 @@ def client():
 @app.route('/staff', methods=['GET', 'POST'])
 def staff():
     labels = ['员工ID', '所在支行', '部门号', '员工姓名', '员工电话', '员工地址', '员工职位', '雇佣日期']
-    result = db.session.query(Sta, BranchStaff).filter(Sta.ID == BranchStaff.staffID).all()
+    result_query = db.session.query(Sta, BranchStaff).filter(Sta.ID == BranchStaff.staffID)
+    result = result_query.all()
 
     if request.method == 'GET':
         return render_template('staff.html', labels=labels, content=result)
     else:
-        if request.form.get('type') == 'update':
+        if request.form.get('type') == 'query':
+            ID = request.form.get('staffID')
+            branch = request.form.get('branch')
+            departNum = request.form.get('departNum')
+            name = request.form.get('name')
+            phone = request.form.get('phone')
+            address = request.form.get('address')
+            position = request.form.get('position')
+            date = request.form.get('date')
+
+            if ID != '':
+                result_query = result_query.filter(Sta.ID == ID)
+            if branch != '':
+                result_query = result_query.filter(BranchStaff.branchName == branch)
+            if departNum != '':
+                result_query = result_query.filter(Sta.departNum == departNum)
+            if name != '':
+                result_query = result_query.filter(Sta.name == name)
+            if phone != '':
+                result_query = result_query.filter(Sta.telephone == phone)
+            if address != '':
+                result_query = result_query.filter(Sta.address == address)
+            if position != '':
+                result_query = result_query.filter(Sta.position == position)
+            if date != '':
+                date = date.split('-')
+                date = datetime.date(
+                int(date[0]), int(date[1]), int(date[2]))
+                result_query = result_query.filter(Sta.employDate == date)
+
+            result = result_query.all()
+
+            return render_template('staff.html', labels=labels, content=result)
+            
+        elif request.form.get('type') == 'update':
             oldID = request.form.get('key')
             departNum = request.form.get('departNum')
             phone = request.form.get('phone')
@@ -243,9 +298,8 @@ def staff():
             db.session.add(newStaff)
             db.session.add(newStaffBranch)
             db.session.commit()
-        
-    result = db.session.query(Sta, BranchStaff).filter(Sta.ID == BranchStaff.staffID).all()
 
+    result = db.session.query(Sta, BranchStaff).filter(Sta.ID == BranchStaff.staffID).all()
     return render_template('staff.html', labels=labels, content=result)
 
 
@@ -256,16 +310,96 @@ def account():
     labels2 = ['账户号', '客户ID', '客户姓名', '开户支行号',
                '开户支行名', '开户时间', '账户余额', '最近访问时间', '透支额度']
 
-    content1 = db.session.query(SavingsAccount, ClientBranchSavingsAccount, Client, Branch).filter(
-        SavingsAccount.account == ClientBranchSavingsAccount.savingsAccount).filter(ClientBranchSavingsAccount.clientID == Client.ID).filter(Branch.num == ClientBranchSavingsAccount.branchNum).all()
-    content2 = db.session.query(CheckAccount, ClientBranchCheckAccount, Client, Branch).filter(
-        CheckAccount.account == ClientBranchCheckAccount.checkAccount).filter(ClientBranchCheckAccount.clientID == Client.ID).filter(Branch.num == ClientBranchCheckAccount.branchNum).all()
+    content1_query = db.session.query(SavingsAccount, ClientBranchSavingsAccount, Client, Branch).filter(
+        SavingsAccount.account == ClientBranchSavingsAccount.savingsAccount).filter(ClientBranchSavingsAccount.clientID == Client.ID).filter(Branch.num == ClientBranchSavingsAccount.branchNum)
+    content2_query = db.session.query(CheckAccount, ClientBranchCheckAccount, Client, Branch).filter(
+        CheckAccount.account == ClientBranchCheckAccount.checkAccount).filter(ClientBranchCheckAccount.clientID == Client.ID).filter(Branch.num == ClientBranchCheckAccount.branchNum)
+
+    content1 = content1_query.all()
+    content2 = content2_query.all()
 
     if request.method == 'GET':
-
         return render_template('account.html', labels1=labels1, labels2=labels2, content1=content1, content2=content2)
     else:
-        if request.form.get('type') == 'addAcc':
+        if request.form.get('type') == 'squery':
+            accNum = request.form.get('accNum')
+            clientID = request.form.get('clientID')
+            clientName = request.form.get('clientName')
+            branchNum = request.form.get('branch')
+            openDate = request.form.get('openDate')
+            latestVisitDate = request.form.get('latestVisitDate')
+            balance = request.form.get('balance')
+            interestRate = request.form.get('interest')
+            currType = request.form.get('currType')
+
+            if accNum != "":
+                content1_query = content1_query.filter(SavingsAccount.account == accNum)
+            if clientID != "":
+                content1_query = content1_query.filter(Client.ID == clientID)
+            if clientName != "":
+                content1_query = content1_query.filter(Client.name == clientName)
+            if branchNum != "":
+                content1_query = content1_query.filter(ClientBranchSavingsAccount.branchNum == branchNum)
+            if openDate != "":
+                openDate = openDate.split('-')
+                openDate = datetime.date(
+                int(openDate[0]), int(openDate[1]), int(openDate[2]))
+                content1_query = content1_query.filter(SavingsAccount.openedDate == openDate)
+            if latestVisitDate != "":
+                latestVisitDate = latestVisitDate.split('-')
+                latestVisitDate = datetime.date(
+                int(latestVisitDate[0]), int(latestVisitDate[1]), int(latestVisitDate[2]))
+                content1_query = content1_query.filter(SavingsAccount.latestVisitDate == latestVisitDate)
+            if balance != "":
+                content1_query = content1_query.filter(SavingsAccount.balance == balance)
+            if interestRate != "":
+                content1_query = content1_query.filter(SavingsAccount.interestRate == interestRate)
+            if currType != "":
+                content1_query = content1_query.filter(SavingsAccount.currencyType == currType)
+            
+            content1 = content1_query.all()
+
+            return render_template('account.html', labels1=labels1, labels2=labels2, content1=content1, content2=content2)
+
+        elif request.form.get('type') == 'cquery':
+            accNum = request.form.get('accNum')
+            clientID = request.form.get('clientID')
+            clientName = request.form.get('clientName')
+            branchNum = request.form.get('branch')
+            openDate = request.form.get('openDate')
+            latestVisitDate = request.form.get('latestVisitDate')
+            balance = request.form.get('balance')
+            accType = request.form.get('accType')
+            overDraft = request.form.get('overDraft')
+
+            if accNum != "":
+                content2_query = content2_query.filter(CheckAccount.account == accNum)
+            if clientID != "":
+                content2_query = content2_query.filter(Client.ID == clientID)
+            if clientName != "":
+                content2_query = content2_query.filter(Client.name == clientName)
+            if branchNum != "":
+                content2_query = content2_query.filter(ClientBranchCheckAccount.branchNum == branchNum)
+            if openDate != "":
+                openDate = openDate.split('-')
+                openDate = datetime.date(
+                int(openDate[0]), int(openDate[1]), int(openDate[2]))
+                content2_query = content2_query.filter(CheckAccount.openedDate == openDate)
+            if latestVisitDate != "":
+                latestVisitDate = latestVisitDate.split('-')
+                latestVisitDate = datetime.date(
+                int(latestVisitDate[0]), int(latestVisitDate[1]), int(latestVisitDate[2]))
+                content2_query = content2_query.filter(CheckAccount.latestVisitDate == latestVisitDate)
+            if balance != "":
+                content2_query = content2_query.filter(CheckAccount.balance == balance)
+            if overDraft != "":
+                content2_query = content2_query.filter(CheckAccount.overdraft == overDraft)
+            
+            content2 = content2_query.all()
+
+            return render_template('account.html', labels1=labels1, labels2=labels2, content1=content1, content2=content2)
+
+        elif request.form.get('type') == 'addAcc':
             clientID = request.form.get('clientID')
             clientName = request.form.get('clientName')
             branchNum = request.form.get('branch')
@@ -285,10 +419,6 @@ def account():
             openDate = openDate.split('-')
             openDate = datetime.date(
                 int(openDate[0]), int(openDate[1]), int(openDate[2]))
-            clientID = int(clientID)
-            balance = float(balance)
-            interestRate = float(interestRate)
-            overDraft = float(overDraft)
 
             if accType == 'saving':
                 # client_branch_account 表中存储账户和支票账户是否存在检查
@@ -341,6 +471,7 @@ def account():
                 int(latestDate[0]), int(latestDate[1]), int(latestDate[2]))
             # 交易记录表
             var_balance = float(balance) - account_result.balance
+
             account_result.balance = balance
             account_result.latestVisitDate = latestDate
             account_result.interestRate = interestRate
@@ -400,15 +531,41 @@ def account():
 @app.route('/debt', methods=['GET', 'POST'])
 def debt():
     labels = ['贷款号', '发放支行', '贷款金额', '贷款状态', '建立日期']
-    content = db.session.query(Loan).all()
     labels2 = ['贷款号', '客户ID', '发放日期', '发放金额']
+
+    content_query = db.session.query(Loan)
+    content = content_query.all()
     result = []
-    #db.session.query(t_loan_to_client).filter_by(loanNum=i.loanNum).all()
 
     if request.method == 'GET':
         return render_template('debt.html', labels=labels, labels2=labels2, content=content, content2=result)
     else:
-        if request.form.get('type') == 'update':
+        if request.form.get('type') == 'main_query':
+            num = request.form.get('num')
+            branch = request.form.get('branch')
+            money = request.form.get('money')
+            date = request.form.get('date')
+            state = request.form.get('state')
+
+            if num != '':
+                content_query = content_query.filter(Loan.loanNum == num)
+            if branch != '':
+                content_query = content_query.filter(Loan.branchName == branch)
+            if money != '':
+                content_query = content_query.filter(Loan.loanAmount == money)
+            if date != '':
+                date = date.split('-')
+                date = datetime.date(
+                int(date[0]), int(date[1]), int(date[2]))
+                content_query = content_query.filter(Loan.createdDate == date)
+            if state != '':
+                content_query = content_query.filter(Loan.status == state)
+
+            content = content_query.all()
+
+            return render_template('debt.html', labels=labels, labels2=labels2, content=content, content2=result)
+
+        elif request.form.get('type') == 'update':
             oldNum = request.form.get('key')
             money = request.form.get('money')
             state = request.form.get('state')
