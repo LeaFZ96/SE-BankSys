@@ -63,28 +63,28 @@
 
     <input type="hidden" name="key" value="">
 
-    
+
     <input type="text" placeholder="客户姓名" name="name" required>
 
-    
+
     <input type="text" placeholder="客户电话" name="phone" required>
 
-    
+
     <input type="text" placeholder="客户地址" name="address" required>
 
-    
+
     <input type="text" placeholder="员工ID" name="staffId" required>
 
-    
+
     <input type="text" placeholder="联系人姓名" name="cname" required>
 
-    
+
     <input type="text" placeholder="联系人电话" name="cphone" required>
 
-    
+
     <input type="text" placeholder="联系人邮箱" name="cemail" required>
 
-    
+
     <input type="text" placeholder="联系人关系" name="crelation" required>
 
 
@@ -175,6 +175,36 @@
               <!-- /.row-->
               <div>
                 <!--Here comes our table!-->
+                <div class="insert-container">
+                    <form class="form-insert" method="POST">
+      
+                      <input type="hidden" name="type" value="query">
+      
+                      <input type="text" placeholder="客户ID
+                          " name="clientID">
+      
+                      <input type="text" placeholder="客户姓名
+                          " name="name">
+      
+                      <input type="text" placeholder="客户电话" name="phone">
+      
+                      <input type="text" placeholder="客户地址" name="address">
+      
+                      <input type="text" placeholder="员工id" name="staffID">
+      
+                      <input type="text" placeholder="联系人姓名" name="cname">
+      
+                      <input type="text" placeholder="联系人电话" name="cphone">
+      
+                      <input type="text" placeholder="联系人邮箱" name="cemail">
+      
+                      <input type="text" placeholder="联系人关系" name="crelation">
+      
+                      <button class="btn bg-warning" type="submit">查询</button>
+      
+                    </form>
+                  </div>
+
                 <div>
                   <table id="bank-table">
                     <tr>
@@ -203,40 +233,40 @@
                     {% endfor %}
 
                   </table>
-    
-                  </div>
+
                 </div>
               </div>
             </div>
-            <div class="card">
+          </div>
+          <div class="card">
             <div class="insert-container">
-                  <form class="form-insert" method="POST">
-                            
-                    <input type="hidden" name="type" value="insert">
-                    
-                    <input type="text" placeholder="客户ID
+              <form class="form-insert" method="POST">
+
+                <input type="hidden" name="type" value="insert">
+
+                <input type="text" placeholder="客户ID
                     " name="clientID" required>
-                
-                    <input type="text" placeholder="客户姓名
+
+                <input type="text" placeholder="客户姓名
                     " name="name" required>
-                    
-                    <input type="text" placeholder="客户电话" name="phone" required>
-                                    
-                    <input type="text" placeholder="客户地址" name="address" required>
-                    
-                    <input type="text" placeholder="员工id" name="staffID" required><br>
 
-                    <input type="text" placeholder="联系人姓名" name="cname" required>
+                <input type="text" placeholder="客户电话" name="phone" required>
 
-                    <input type="text" placeholder="联系人电话" name="cphone" required>
+                <input type="text" placeholder="客户地址" name="address" required>
 
-                    <input type="text" placeholder="联系人邮箱" name="cemail" required>
+                <input type="text" placeholder="员工id" name="staffID" required><br>
 
-                    <input type="text" placeholder="联系人关系" name="crelation" required>
+                <input type="text" placeholder="联系人姓名" name="cname" required>
 
-                    <button class="btn bg-warning" type="submit">添加</button>
-              
-                  </form>
+                <input type="text" placeholder="联系人电话" name="cphone" required>
+
+                <input type="text" placeholder="联系人邮箱" name="cemail" required>
+
+                <input type="text" placeholder="联系人关系" name="crelation" required>
+
+                <button class="btn bg-warning" type="submit">添加</button>
+
+              </form>
             </div>
           </div>
         </div>

@@ -87,12 +87,47 @@ def branch():
 @app.route('/client', methods=['GET', 'POST'])
 def client():
     labels = ['客户ID', '客户姓名', '客户电话', '客户地址', '负责员工ID', '联系人姓名', '联系人手机', '联系人邮箱', '与客户关系']
-    result = db.session.query(Client, ClientContact).filter(Client.ID == ClientContact.clientID).all()
+    result_query = db.session.query(Client, ClientContact).filter(Client.ID == ClientContact.clientID)
+    result = result_query.all()
 
     if request.method == 'GET':
         return render_template('client.html', labels=labels, content=result)
     else:
-        if request.form.get('type') == 'update':
+        if request.form.get('type') == 'query':
+            clientID = request.form.get('clientID')
+            clientName = request.form.get('name')
+            clientPhone = request.form.get('phone')
+            clientAddress = request.form.get('address')
+            staffID = request.form.get('staffID')
+            cname = request.form.get('cname')
+            cphone = request.form.get('cphone')
+            cemail = request.form.get('cemail')
+            crelation = request.form.get('crelation')
+
+            if clientID != '':
+                result_query = result_query.filter(Client.ID == clientID)
+            if clientName != '':
+                result_query = result_query.filter(Client.name == clientName)
+            if clientPhone != '':
+                result_query = result_query.filter(Client.phone == clientPhone)
+            if clientAddress != '':
+                result_query = result_query.filter(Client.address == clientAddress)
+            if staffID != '':
+                result_query = result_query.filter(Client.staffID == staffID)
+            if cname != '':
+                result_query = result_query.filter(ClientContact.name == cname)
+            if cphone != '':
+                result_query = result_query.filter(ClientContact.phone == cphone)
+            if cemail != '':
+                result_query = result_query.filter(ClientContact.email == cemail)
+            if crelation != '':
+                result_query = result_query.filter(ClientContact.relation == crelation)
+
+            result = result_query.all()
+
+            return render_template('client.html', labels=labels, content=result)
+
+        elif request.form.get('type') == 'update':
             clientID = request.form.get('key')
             # 更新还没做
         elif request.form.get('type') == 'delete':
@@ -416,6 +451,20 @@ def debt():
             loanNum = request.form.get('loanNum')
             
             result = db.session.query(t_loan_to_client).filter_by(loanNum=loanNum).all()
+
+        elif request.form.get('type') == 'give':
+            loanNum = request.form.get('loanNum')
+            clientID = request.form.get('clientID')
+            date = request.form.get('date')
+            money = request.form.get('money')
+
+            date = date.split('-')
+            date = datetime.date(
+                int(date[0]), int(date[1]), int(date[2]))
+
+            ins = t_loan_to_client.insert()
+            db.session.execute(db.insert(t_loan_to_client, values={'loanNum': loanNum, 'clientID': clientID, 'date': date, 'amount': money}))
+            db.session.commit()
 
     content = db.session.query(Loan).all()
 
