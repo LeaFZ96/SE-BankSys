@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v2.1.12
+* @link https://coreui.io
+* Copyright (c) 2018 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+
+<html lang="en">
+  <head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>404</title>
+    <!-- Main styles for this application-->
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+  </head>
+  
+  <body class="app flex-row align-items-center">
+    <div class="container" >
+      <!--<div class="row justify-content-center" >
+        <h1>404</h1>
+      </div>-->
+      <div class="row justify-content-center" >
+        <div class="col-md-6">
+          <div>
+            <h1 style="font-size:80px">404</h1>
+          </div>
+          <div class="clearfix">
+            <p><img src="{{ url_for('static', filename='psb.gif') }}"  alt="删库跑路" /></p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+              <div class="card-header">{{ error_title }}
+              </div>
+              <div class="card-body">
+                <p class="text-muted">{{ error_message }}</p>
+              </div>     
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

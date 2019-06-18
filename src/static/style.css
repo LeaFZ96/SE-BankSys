@@ -1923,7 +1923,8 @@ pre code {
 }
 
 .form-insert{
-  width: 100%
+  width: 100%;
+  
 }
 .form-insert input[type=text], .form-container input[type=password] {
   border: none;
@@ -1934,7 +1935,8 @@ pre code {
 }
 
 .insert-container{
-  text-align: center; 
+  padding: 20px;
+  text-align: left; 
 }
 
 .form-popup {
@@ -1954,6 +1956,7 @@ pre code {
   max-width: 300px;
   padding: 10px;
   background-color: white;
+  text-align:center;
 
 }
 
@@ -2251,6 +2254,10 @@ textarea.form-control {
 
 .was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
   color: #4dbd74;
+}
+
+.date{
+  color: grey;
 }
 
 .date input[type=text], .form-container input[type=password] {
@@ -2738,7 +2745,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-warning {
-  color:#fff;
+  color:black;
   background-color: #ffc107;
   border-color: #ffc107;
 }
@@ -3597,6 +3604,7 @@ input[type="button"].btn-block {
 
 .input-group {
   position: relative;
+  text-align: center; 
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
@@ -4739,6 +4747,10 @@ input[type="button"].btn-block {
 
 .navbar-dark .navbar-text a:hover, .navbar-dark .navbar-text a:focus {
   color: #fff;
+}
+
+.stat-container{
+  height:100px;
 }
 
 .card {
@@ -6735,7 +6747,7 @@ button.bg-success:focus {
 
 .chartdiv {
   width: 100%;
-  height: 500px;
+  height: 200px;
 }
 
 a.bg-info:hover, a.bg-info:focus,

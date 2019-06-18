@@ -1,16 +1,18 @@
 # coding=UTF-8
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, abort
 import config
 import numpy as np
 import datetime
-from db_init import db
-from models import Branch, Client, Sta, SavingsAccount, CheckAccount, Loan, ClientBranchSavingsAccount, ClientBranchCheckAccount, ClientContact, BranchStaff, t_loan_to_client
+from db_init import db, db2
+from flask_sqlalchemy import sqlalchemy
+from models import Branch, Client, Sta, SavingsAccount, CheckAccount, Loan, ClientBranchSavingsAccount, ClientBranchCheckAccount, ClientContact, BranchStaff, t_loan_to_client, t_accountAccessRecord
 
 app = Flask(__name__)
 app.config.from_object(config)
 
 db.init_app(app)
 
+cursor = db2.cursor()
 
 @app.route('/')
 def hello_world():
@@ -234,7 +236,7 @@ def staff():
                 date = date.split('-')
                 date = datetime.date(
                 int(date[0]), int(date[1]), int(date[2]))
-                result_query = result_query.filter(Sta.employDate == date)
+                result_query = result_query.filter(BranchStaff.employDate == date)
 
             result = result_query.all()
 
@@ -472,6 +474,13 @@ def account():
             # 交易记录表
             var_balance = float(balance) - account_result.balance
 
+            acc_temp = content1_query.filter(ClientBranchSavingsAccount.savingsAccount == oldAccount).first()
+            ins = t_accountAccessRecord.insert()
+            if var_balance > 0:
+                db.session.execute(db.insert(t_accountAccessRecord, values={'clientID': acc_temp[2].ID, 'savingsAccount': oldAccount, 'depositDate': latestDate, 'depositAmount': var_balance}))
+            elif var_balance < 0:
+                db.session.execute(db.insert(t_accountAccessRecord, values={'clientID': acc_temp[2].ID, 'savingsAccount': oldAccount, 'withdrawalDate': latestDate, 'withdrawalAmount': abs(var_balance)}))
+
             account_result.balance = balance
             account_result.latestVisitDate = latestDate
             account_result.interestRate = interestRate
@@ -493,6 +502,13 @@ def account():
 
             # 交易记录表
             var_balance = float(balance) - account_result.balance
+            acc_temp = content2_query.filter(ClientBranchCheckAccount.checkAccount == oldAccount).first()
+            ins = t_accountAccessRecord.insert()
+            if var_balance > 0:
+                db.session.execute(db.insert(t_accountAccessRecord, values={'clientID': acc_temp[2].ID, 'checkAccount': oldAccount, 'depositDate': latestDate, 'depositAmount': var_balance}))
+            elif var_balance < 0:
+                db.session.execute(db.insert(t_accountAccessRecord, values={'clientID': acc_temp[2].ID, 'checkAccount': oldAccount, 'withdrawalDate': latestDate, 'withdrawalAmount': abs(var_balance)}))
+
             account_result.balance = balance
             account_result.latestVisitDate = latestDate
             account_result.overdraft = overDraft
@@ -581,6 +597,10 @@ def debt():
             oldNum = request.form.get('key')
             
             loan_result = db.session.query(Loan).filter_by(loanNum=oldNum).first()
+            if loan_result.status == 1:
+                error_title = '删除错误'
+                error_message = '不可删除状态为1的贷款信息'
+                return render_template('404.html', error_title=error_title, error_message=error_message)
             db.session.delete(loan_result)
             db.session.commit()
 
@@ -588,7 +608,6 @@ def debt():
             branch = request.form.get('branch')
             money = request.form.get('money')
             date = request.form.get('date')
-            state = request.form.get('state')
 
             date = date.split('-')
             date = datetime.date(
@@ -597,7 +616,7 @@ def debt():
             newLoan = Loan(
                 branchName = branch,
                 loanAmount = money,
-                status = state,
+                status = 0,
                 createdDate = date
             )
 
@@ -622,6 +641,8 @@ def debt():
             ins = t_loan_to_client.insert()
             db.session.execute(db.insert(t_loan_to_client, values={'loanNum': loanNum, 'clientID': clientID, 'date': date, 'amount': money}))
             db.session.commit()
+            cursor.callproc('dkstatus', (loanNum,))
+            db2.commit()
 
     content = db.session.query(Loan).all()
 
@@ -630,16 +651,101 @@ def debt():
 
 @app.route('/statistics', methods=['GET', 'POST'])
 def statistics():
-    return render_template('statistics.html')
+    bank_list = [['合肥', 100, 100, 100], ['成都', 250, 250, 250], ['杭州', 300, 300, 300], ['南京', 120, 120, 120]]
+
+    bank_all = db.session.query(Branch).all()
+    new_bank_list = []
+    for i in bank_all:
+        new_bank_list.append([i.num, i.name])
+
+    if request.method == 'GET':
+        return render_template('statistics.html', bank_list=bank_list)
+    else:
+        '''
+            i[0]: 支行号
+            i[1]: 支行名
+            i[2]: 储蓄存款
+            i[3]: 储蓄取款
+            i[4]: 贷款总金额
+            i[5]: 储蓄总人数
+            i[6]: 贷款总人数
+        '''
+        if request.form.get('type') == 'year':
+            year = request.form.get('year')
+            for i in new_bank_list:
+                cxck = cursor.callproc('cxckyear', (int(year), i[0], None, None))
+                cxqk = cursor.callproc('cxqkyear', (int(year), i[0], None, None))
+                dk = cursor.callproc('dkyear', (int(year), i[1], None, None))
+                num = cursor.callproc('cxyearNum', (int(year), i[0], None))
+                i.append(cxck[2])   # i[2]
+                i.append(cxqk[2])   # i[3]
+                i.append(dk[2])     # i[4]
+                i.append(num[2])    # i[5]
+                i.append(dk[3])     # i[6]
+
+            #return str(new_bank_list)
+        elif request.form.get('type') == 'season':
+            year = request.form.get('year')
+            season = request.form.get('season')
+            for i in new_bank_list:
+                cxck = cursor.callproc('cxckseason', (int(year), int(season), i[0], None, None))
+                cxqk = cursor.callproc('cxqkseason', (int(year), int(season), i[0], None, None))
+                dk = cursor.callproc('dkseason', (int(year), int(season), i[1], None, None))
+                num = cursor.callproc('cxseasonNum', (int(year), int(season), i[0], None))
+                i.append(cxck[3])   # i[2]
+                i.append(cxqk[3])   # i[3]
+                i.append(dk[3])     # i[4]
+                i.append(num[3])    # i[5]
+                i.append(dk[4])     # i[6])
+            
+        elif request.form.get('type') == 'month':
+            year = request.form.get('year')
+            month = request.form.get('month')
+            for i in new_bank_list:
+                cxck = cursor.callproc('cxckmonth', (int(year), int(month), i[0], None, None))
+                cxqk = cursor.callproc('cxqkmonth', (int(year), int(month), i[0], None, None))
+                dk = cursor.callproc('dkmonth', (int(year), int(month), i[1], None, None))
+                num = cursor.callproc('cxmonthNum', (int(year), int(month), i[0], None))
+                i.append(cxck[3])   # i[2]
+                i.append(cxqk[3])   # i[3]
+                i.append(dk[3])     # i[4]
+                i.append(num[3])    # i[5]
+                i.append(dk[4])     # i[6]
+
+    
+    
+    #bank_list = [['合肥', 100], ['成都', 250], ['杭州', 300], ['南京', 120]]
+    bank_list = new_bank_list
+    #return str(bank_list)
+    return render_template('statistics.html', bank_list=bank_list)
 
 
 @app.route('/test', methods=['GET', 'POST'])
 def test_mod():
-    old_name = request.form.get('old_name')
-    result = db.session.query(Branch).filter_by(name=old_name).first()
-    stri = str(result.name)
+    args = cursor.callproc('cxckseason', (2019, 3, 111, None, None))
+    stri = (["".join(str(x) for x in args)][0])
+    stri = str(args[3])
     return stri
 
+@app.route('/404')
+def not_found():
+    
+    return render_template('404.html', error_title='错误标题', error_message='错误信息')
+
+@app.errorhandler(Exception)
+def err_handle(e):
+    error_message = ''
+    error_title = ''
+    if (type(e) == IndexError):
+        error_title = '填写错误'
+        error_message = '日期格式错误! (yyyy-mm-dd)'
+    elif (type(e) == AssertionError):
+        error_title = '删除错误'
+        error_message = '删除条目仍有依赖！'
+    elif (type(e) == sqlalchemy.exc.IntegrityError):
+        error_title = '更新/插入错误'
+        error_message = str(e._message())
+    return render_template('404.html', error_title=error_title, error_message=error_message)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000, debug=True)
