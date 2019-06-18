@@ -65,6 +65,9 @@
 
     <input type="hidden" name="type" value="update">
 
+    <label for="email"><b>支行编号</b></label>
+    <input type="text" placeholder="支行编号" name="branchNum" required>
+
     <label for="email"><b>支行名</b></label>
     <input type="text" placeholder="支行名" name="branch_name" required>
 
@@ -149,6 +152,7 @@
                     <form class="form-insert" method="POST">
       
                       <input type="hidden" name="type" value="query">
+<<<<<<< HEAD
 
                       <input type="text" placeholder="支行编号" name="branchNum">
       
@@ -177,6 +181,36 @@
               <div>
                 <!--Here comes our table!-->
 
+=======
+
+                      <input type="text" placeholder="支行编号" name="branchNum">
+      
+                      <input type="text" placeholder="支行名" name="name">
+      
+                      <input type="text" placeholder="支行资产" name="estate">
+      
+                      <input type="text" placeholder="所在城市" name="city">
+                      
+                      <button class="btn btn-info" type="submit">查询</button>
+      
+                    </form>
+              </div>
+            </div>
+            
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-5">
+                  <div class="small text-muted">2019 6</div>
+                  <h4 class="card-title mb-0">支行管理</h4>
+                </div>
+              </div>
+              <!-- /.row-->
+              <div>
+                <!--Here comes our table!-->
+
+>>>>>>> 2b5c44d6cd256e205cc89869bc161a6442461d18
                 <div>
                   <table id="bank-table">
                     <tr>
@@ -208,6 +242,8 @@
               <form class="form-insert" method="POST">
 
                 <input type="hidden" name="type" value="insert">
+
+                <input type="text" placeholder="支行编号" name="branchNum">
 
                 <input type="text" placeholder="支行名" name="name" required>
 
