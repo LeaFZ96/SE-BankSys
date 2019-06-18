@@ -142,15 +142,25 @@
         <div class="animated fadeIn">
           <div class="input-prepend input-group">
             <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-search"></i>
-              </span>
+              <div class="insert-container">
+                    <form class="form-insert" method="POST">
+      
+                      <input type="hidden" name="type" value="query">
+
+                      <input type="text" placeholder="支行编号" name="branchNum">
+      
+                      <input type="text" placeholder="支行名" name="name">
+      
+                      <input type="text" placeholder="支行资产" name="estate">
+      
+                      <input type="text" placeholder="所在城市" name="city">
+                      
+                      <button class="btn btn-info" type="submit">查询</button>
+      
+                    </form>
+              </div>
             </div>
-            <input onkeyup="tableFilter()" class="form-control" id="prependedInput" size="16" type="text"
-              placeholder="搜索支行">
-            <span class="input-group-append">
-              <button class="btn btn-info" type="button">搜索</button>
-            </span>
+            
           </div>
           <div class="card">
             <div class="card-body">
@@ -163,23 +173,7 @@
               <!-- /.row-->
               <div>
                 <!--Here comes our table!-->
-                <div class="insert-container">
-                    <form class="form-insert" method="POST">
-      
-                      <input type="hidden" name="type" value="query">
 
-                      <input type="text" placeholder="支行编号" name="branchNum">
-      
-                      <input type="text" placeholder="支行名" name="name">
-      
-                      <input type="text" placeholder="支行资产" name="estate">
-      
-                      <input type="text" placeholder="所在城市" name="city">
-      
-                      <button class="btn btn-warning" type="submit">查询</button>
-      
-                    </form>
-                  </div>
                 <div>
                   <table id="bank-table">
                     <tr>

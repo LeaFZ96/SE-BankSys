@@ -94,15 +94,6 @@
 
 <body class="app header-fixed sidebar-fixed aside-menu-fixed sidebar-lg-show">
   <header class="app-header navbar">
-    <button class="navbar-toggler sidebar-toggler d-lg-none mr-auto" type="button" data-toggle="sidebar-show">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <button class="navbar-toggler aside-menu-toggler d-md-down-none" type="button" data-toggle="aside-menu-lg-show">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <button class="navbar-toggler aside-menu-toggler d-lg-none" type="button" data-toggle="aside-menu-show">
-      <span class="navbar-toggler-icon"></span>
-    </button>
   </header>
   <div class="app-body">
     <div class="sidebar">
@@ -149,15 +140,30 @@
       <div class="container-fluid">
         <div class="animated fadeIn">
           <div class="input-prepend input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-search"></i>
-              </span>
-            </div>
-            <input class="form-control" id="prependedInput" size="16" type="text" placeholder="搜索员工">
-            <span class="input-group-append">
-              <button class="btn btn-info" type="button">搜索</button>
-            </span>
+            <div class="insert-container">
+                    <form class="form-insert" method="POST">
+      
+                      <input type="hidden" name="type" value="query">
+      
+                      <input type="text" placeholder="员工ID" name="staffID" size="16">
+      
+                      <input type="text" placeholder="所在支行" name="branch" size="16">
+      
+                      <input type="text" placeholder="部门号" name="departNum" size="16">
+      
+                      <input type="text" placeholder="员工姓名" name="name" size="16">
+      
+                      <input type="text" placeholder="员工电话" name="phone" size="16">
+      
+                      <input type="text" placeholder="员工地址" name="address" size="16">
+      
+                      <input type="text" placeholder="员工职位" name="position" size="16">
+      
+                      <input type="text" placeholder="雇佣日期" name="date" size="16">
+                      <button class="btn btn-info" type="submit">查询</button>
+      
+                    </form>
+                  </div>
           </div>
           <div class="card">
             <div class="card-body">
@@ -171,30 +177,7 @@
               <!-- /.row-->
               <div>
                 <!--Here comes our table!-->
-                <div class="insert-container">
-                    <form class="form-insert" method="POST">
-      
-                      <input type="hidden" name="type" value="query">
-      
-                      <input type="text" placeholder="员工ID" name="staffID">
-      
-                      <input type="text" placeholder="所在支行" name="branch">
-      
-                      <input type="text" placeholder="部门号" name="departNum">
-      
-                      <input type="text" placeholder="员工姓名" name="name">
-      
-                      <input type="text" placeholder="员工电话" name="phone">
-      
-                      <input type="text" placeholder="员工地址" name="address">
-      
-                      <input type="text" placeholder="员工职位" name="position">
-      
-                      <input type="text" placeholder="雇佣日期" name="date">
-                      <button class="btn bg-warning" type="submit">查询</button>
-      
-                    </form>
-                  </div
+                
                 <div>
                   <table id="bank-table">
                     <tr>

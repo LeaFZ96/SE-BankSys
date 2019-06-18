@@ -1923,7 +1923,8 @@ pre code {
 }
 
 .form-insert{
-  width: 100%
+  width: 100%;
+  
 }
 .form-insert input[type=text], .form-container input[type=password] {
   border: none;
@@ -2251,6 +2252,10 @@ textarea.form-control {
 
 .was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
   color: #4dbd74;
+}
+
+.date{
+  color: grey;
 }
 
 .date input[type=text], .form-container input[type=password] {
@@ -3597,6 +3602,7 @@ input[type="button"].btn-block {
 
 .input-group {
   position: relative;
+  text-align: center; 
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;

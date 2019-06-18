@@ -133,28 +133,7 @@
       <div class="container-fluid">
         <div class="animated fadeIn">
           <div class="input-prepend input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-search"></i>
-              </span>
-            </div>
-            <input class="form-control" id="prependedInput" size="16" type="text" placeholder="搜索贷款">
-            <span class="input-group-append">
-              <button class="btn btn-info" type="button">搜索</button>
-            </span>
-          </div>
-          <div class="card">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-5">
-                  <div class="small text-muted">2019 6</div>
-                  <h4 class="card-title mb-0">贷款管理</h4>
-                </div>
-              </div>
-              <!-- /.row-->
-              <div>
-                <!--Here comes our table!-->
-                <div class="insert-container">
+            <div class="insert-container">
                   <form class="form-insert" method="POST">
                     <input type="hidden" name="type" value="main_query">
 
@@ -167,9 +146,21 @@
                     <input type="text" placeholder="建立日期" name="date">
     
                     <input type="text" placeholder="贷款状态" name="state">
-                    <button class="btn bg-warning" type="submit">查询</button>
+                    <button class="btn btn-info" type="submit">查询</button>
                   </form>
                 </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-5">
+                  <div class="small text-muted">2019 6</div>
+                  <h4 class="card-title mb-0">贷款管理</h4>
+                </div>
+              </div>
+              <!-- /.row-->
+              <div>
+                <!--Here comes our table!-->
                 <div>
                   <table id="bank-table">
                     <tr>
@@ -215,17 +206,17 @@
             </div>
           </div>
 
-          <div class="card">
-            <div class="insert-container">
-              <form class="form-insert" method="POST">
-                <input type="hidden" name="type" value="query">
-
-                <input type="text" placeholder="待查询贷款号" name="loanNum" required>
-
-                <button class="btn bg-warning" type="submit">查询</button>
-              </form>
+          <div class="insert-container">
+            <div class="input-prepend input-group">
+              <div class="insert-container">
+                <form class="form-insert" method="POST">
+                  <input type="text" placeholder="待查询贷款号" name="loanNum" required>
+                  <button class="btn btn-info" type="submit">查询</button>
+                </form>
+              </div>
             </div>
-
+          </div>
+          <div class="card">
             <table id="bank-table">
               <tr>
                 {% for j in labels2 %}

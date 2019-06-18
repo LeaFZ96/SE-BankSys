@@ -154,15 +154,35 @@
       <div class="container-fluid">
         <div class="animated fadeIn">
           <div class="input-prepend input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                <i class="fa fa-search"></i>
-              </span>
-            </div>
-            <input class="form-control" id="prependedInput" size="16" type="text" placeholder="搜索客户">
-            <span class="input-group-append">
-              <button class="btn btn-info" type="button">搜索</button>
-            </span>
+            <div class="insert-container">
+                    <form class="form-insert" method="POST">
+      
+                      <input type="hidden" name="type" value="query">
+      
+                      <input type="text" placeholder="客户ID
+                          " name="clientID" size="15">
+      
+                      <input type="text" placeholder="客户姓名
+                          " name="name" size="15">
+      
+                      <input type="text" placeholder="客户电话" name="phone" size="15">
+      
+                      <input type="text" placeholder="客户地址" name="address" size="10">
+      
+                      <input type="text" placeholder="员工id" name="staffID" size="15">
+      
+                      <input type="text" placeholder="联系人姓名" name="cname" size="15">
+      
+                      <input type="text" placeholder="联系人电话" name="cphone" size="15">
+      
+                      <input type="text" placeholder="联系人邮箱" name="cemail" size="15">
+      
+                      <input type="text" placeholder="联系人关系" name="crelation" size="15">
+      
+                      <button class="btn btn-info" type="submit">查询</button>
+      
+                    </form>
+                  </div>
           </div>
           <div class="card">
             <div class="card-body">
@@ -175,36 +195,6 @@
               <!-- /.row-->
               <div>
                 <!--Here comes our table!-->
-                <div class="insert-container">
-                    <form class="form-insert" method="POST">
-      
-                      <input type="hidden" name="type" value="query">
-      
-                      <input type="text" placeholder="客户ID
-                          " name="clientID">
-      
-                      <input type="text" placeholder="客户姓名
-                          " name="name">
-      
-                      <input type="text" placeholder="客户电话" name="phone">
-      
-                      <input type="text" placeholder="客户地址" name="address">
-      
-                      <input type="text" placeholder="员工id" name="staffID">
-      
-                      <input type="text" placeholder="联系人姓名" name="cname">
-      
-                      <input type="text" placeholder="联系人电话" name="cphone">
-      
-                      <input type="text" placeholder="联系人邮箱" name="cemail">
-      
-                      <input type="text" placeholder="联系人关系" name="crelation">
-      
-                      <button class="btn bg-warning" type="submit">查询</button>
-      
-                    </form>
-                  </div>
-
                 <div>
                   <table id="bank-table">
                     <tr>
