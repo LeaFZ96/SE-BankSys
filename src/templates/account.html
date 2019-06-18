@@ -125,7 +125,10 @@
 
 <div class="form-popup" id="deleteSWarning">
   <form class="form-container" name="delete_sform" method="POST">
-    <h4>确认删除吗？</h4>
+    <p>       </p>
+    <h2>确认删除？</h2>
+    <p>       </p>
+    <p>       </p>
 
     <input type="hidden" name="type" value="delete">
 
@@ -139,7 +142,10 @@
 
 <div class="form-popup" id="deleteCWarning">
   <form class="form-container" name="delete_cform" method="POST">
-    <h4>确认删除吗？</h4>
+    <p>       </p>
+    <h2>确认删除？</h2>
+    <p>       </p>
+    <p>       </p>
 
     <input type="hidden" name="type" value="delete">
 
@@ -205,6 +211,7 @@
 
           <div class="input-prepend input-group">
             <div class="insert-container">
+              
                   <form method="POST" class="form-insert">
                     <input type="hidden" name="type" value="squery">
                     <input type="text" placeholder="账户号" name="accNum" size="8">
@@ -223,7 +230,7 @@
 
                     <input type="text" placeholder="利率" name="interest" size="8">
 
-                    <input type="text" placeholder="货币类型" name="currType" size="16">
+                    <input type="text" placeholder="货币类型" name="currType" size="8">
 
                     <button class="btn btn-info" type="submit">查询</button>
 
@@ -367,19 +374,19 @@
 
                 <input type="text" placeholder="客户ID" name="clientID" required>
 
-                <input type="text" placeholder="客户姓名" name="clientName" required>
+                <input type="text" placeholder="客户姓名" name="clientName" required size="8">
 
-                <input type="text" placeholder="开户支行号" name="branch" required>
+                <input type="text" placeholder="开户支行号" name="branch" required size="8">
 
-                <input type="text" placeholder="开户时间" name="openDate" required><br>
+                <input type="text" placeholder="开户时间" name="openDate" required size="15">
 
-                <input type="text" placeholder="账户余额" name="balance" required>
+                <input type="text" placeholder="账户余额" name="balance" required size="15">
 
-                <input type="text" placeholder="利率（储蓄）" name="interest" required>
+                <input type="text" placeholder="利率（储蓄）" name="interest" required size="15">
 
-                <input type="text" placeholder="货币类型（储蓄）" name="currType" required>
+                <input type="text" placeholder="货币类型（储蓄）" name="currType" required size="16">
 
-                <input type="text" placeholder="透支额度（支票）" name="overDraft"> &emsp;&emsp;&emsp;
+                <input type="text" placeholder="透支额度（支票）" name="overDraft" size="12"> &emsp;&emsp;&emsp;
 
                 <button class="btn bg-warning" type="submit">添加</button>
 

@@ -1935,7 +1935,8 @@ pre code {
 }
 
 .insert-container{
-  text-align: center; 
+  padding: 20px;
+  text-align: left; 
 }
 
 .form-popup {
@@ -1955,6 +1956,7 @@ pre code {
   max-width: 300px;
   padding: 10px;
   background-color: white;
+  text-align:center;
 
 }
 
@@ -2743,7 +2745,7 @@ fieldset:disabled a.btn {
 }
 
 .btn-warning {
-  color:#fff;
+  color:black;
   background-color: #ffc107;
   border-color: #ffc107;
 }

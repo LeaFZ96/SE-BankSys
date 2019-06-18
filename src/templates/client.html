@@ -95,7 +95,10 @@
 
 <div class="form-popup" id="deleteWarning">
   <form class="form-container" name="delete_form" method="POST">
-    <h4>确认删除吗？</h4>
+    <p>       </p>
+    <h2>确认删除？</h2>
+    <p>       </p>
+    <p>       </p>
 
     <input type="hidden" name="type" value="delete">
 
@@ -159,11 +162,9 @@
       
                       <input type="hidden" name="type" value="query">
       
-                      <input type="text" placeholder="客户ID
-                          " name="clientID" size="15">
+                      <input type="text" placeholder="客户ID" name="clientID" size="15">
       
-                      <input type="text" placeholder="客户姓名
-                          " name="name" size="15">
+                      <input type="text" placeholder="客户姓名" name="name" size="8">
       
                       <input type="text" placeholder="客户电话" name="phone" size="15">
       
@@ -232,29 +233,27 @@
             <div class="insert-container">
               <form class="form-insert" method="POST">
 
-                <input type="hidden" name="type" value="insert">
+                <input type="hidden" name="type" value="query">
+      
+                      <input type="text" placeholder="客户ID" name="clientID" size="15">
+      
+                      <input type="text" placeholder="客户姓名" name="name" size="8">
+      
+                      <input type="text" placeholder="客户电话" name="phone" size="15">
+      
+                      <input type="text" placeholder="客户地址" name="address" size="10">
+      
+                      <input type="text" placeholder="员工id" name="staffID" size="15">
+      
+                      <input type="text" placeholder="联系人姓名" name="cname" size="15">
+      
+                      <input type="text" placeholder="联系人电话" name="cphone" size="15">
+      
+                      <input type="text" placeholder="联系人邮箱" name="cemail" size="15">
+      
+                      <input type="text" placeholder="联系人关系" name="crelation" size="15">
 
-                <input type="text" placeholder="客户ID
-                    " name="clientID" required>
-
-                <input type="text" placeholder="客户姓名
-                    " name="name" required>
-
-                <input type="text" placeholder="客户电话" name="phone" required>
-
-                <input type="text" placeholder="客户地址" name="address" required>
-
-                <input type="text" placeholder="员工id" name="staffID" required><br>
-
-                <input type="text" placeholder="联系人姓名" name="cname" required>
-
-                <input type="text" placeholder="联系人电话" name="cphone" required>
-
-                <input type="text" placeholder="联系人邮箱" name="cemail" required>
-
-                <input type="text" placeholder="联系人关系" name="crelation" required>
-
-                <button class="btn bg-warning" type="submit">添加</button>
+                <button class="btn btn-warning" type="submit">添加</button>
 
               </form>
             </div>
