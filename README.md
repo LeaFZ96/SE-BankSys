@@ -23,7 +23,7 @@ MYSQL --Query--> 后端;
 
 ### 逻辑
 
-前端使用了Boostrap模板 [CoreUI](https://coreui.io/), 分为管理和统计两个功能模块。
+前端使用了Bootstrap模板 [CoreUI](https://coreui.io/), 分为管理和统计两个功能模块。
 
 **管理模块**
 
