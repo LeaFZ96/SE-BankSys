@@ -63,6 +63,7 @@ class ClientContact(Client):
 
 class ClientBranchAccount(db.Model):
     __tablename__ = 'client_branch_account'
+    
     __table_args__ = (
         db.Index('tt', 'savingsAccount', 'checkAccount'),
         db.Index('ee', 'clientID', 'checkAccount')

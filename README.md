@@ -1,6 +1,6 @@
 # SE-BankSys
 Bank system project
-
+Based on Flask and MySQL
 
 
 ```mermaid

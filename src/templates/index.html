@@ -59,7 +59,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="client">
-                <i class="nav-icon icon-pie-chart"></i> 客户管理</a>
+                <i class="nav-icon icon-cursor"></i> 客户管理</a>
             </li>
             <li class="nav-item nav-dropdown">
               <a class="nav-link nav-dropdown-toggle" href="account">
@@ -86,8 +86,8 @@
                     </div>
                     <div class="text-value"></div>
                   </div>
-                  <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
-                    <canvas class="chart" id="card-chart1" height="70"></canvas>
+                  <div class="chart-wrapper mt-3 mx-3" style="height:20px;">
+                    <canvas class="chart" id="card-chart1" height="20"></canvas>
                   </div>
                 </div>
               </div>
@@ -97,8 +97,8 @@
                   <div class="card-body pb-0">
                     <div class="text-value"></div>
                   </div>
-                  <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
-                    <canvas class="chart" id="card-chart2" height="70"></canvas>
+                  <div class="chart-wrapper mt-3 mx-3" style="height:20px;">
+                    <canvas class="chart" id="card-chart2" height="20"></canvas>
                   </div>
                 </div>
               </div>
@@ -111,8 +111,8 @@
                     <div class="text-value"></div>
                     <div></div>
                   </div>
-                  <div class="chart-wrapper mt-3" style="height:70px;">
-                    <canvas class="chart" id="card-chart3" height="70"></canvas>
+                  <div class="chart-wrapper mt-3" style="height:20px;">
+                    <canvas class="chart" id="card-chart3" height="20"></canvas>
                   </div>
                 </div>
               </div>
@@ -125,7 +125,7 @@
                     <div class="text-value"></div>
                     <div></div>
                   </div>
-                  <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
+                  <div class="chart-wrapper mt-3 mx-3" style="height:20px;">
                     <canvas class="chart" id="card-chart4" height="70"></canvas>
                   </div>
                 </div>
@@ -134,13 +134,14 @@
             </div>
             <!-- /.row-->
             <div class="card">
-              <div class="card-body">
+              <div class="card-body" style="background: url('{{ url_for('static', filename='psb.gif') }}')">
                 <div class="row">
                   <div class="col-sm-5">
                     <div class="clearfix">
-                        <h1 class="float-left display-3 mr-4">欢迎</h1>
-                        <h4 class="pt-3">使用银行业务系统</h4>
-                        <p class="text-muted">by LeaFZ96, E-Tsai & hubertzk</p>
+                        <h1 class="float-left display-3 mr-4" style="color: white">欢迎</h1>
+                        <h4 class="pt-3" style="color: white">使用银行业务系统</h4>
+                        <p class="text-muted" style="color: white">by LeaFZ96, E-Tsai & hubertzk</p>
+                        
                       </div>
                   </div>
                 </div>
