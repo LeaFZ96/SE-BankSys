@@ -5,7 +5,7 @@ db = SQLAlchemy()
 
 db2 = mysql.connector.connect(
     host='localhost',
-    user='leafz',
-    passwd='zhanglifu',
+    user='root',
+    passwd='root',
     database='bank'
 )
