@@ -1,4 +1,43 @@
 # SE-BankSys
+## 环境
+
+- mysql 8.0
+- python 3.5+
+
+python 包：
+
+- flask
+- flask-sqlalchemy
+
+- flask-sqlacodegen
+- numpy
+- mysql-connector
+- pymysql
+
+下载方式：
+
+```
+pip install xxxx
+```
+
+
+
+### 生成models.py
+
+```shell
+flask-sqlacodegen 'mysql+pymysql://root:root@localhost:3306/bank' --flask > models.py
+```
+
+
+
+### 运行
+
+```
+python app.py
+```
+
+
+
 Bank system project
 Based on Flask and MySQL
 
