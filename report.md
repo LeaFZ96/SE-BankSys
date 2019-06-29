@@ -1,4 +1,4 @@
-# lab3 实验报告
+lab3 实验报告
 
 ## 1  概述
 
@@ -37,7 +37,7 @@
   - 员工管理模块：实现对员工信息的增删改查；
   - 客户管理模块：实现对客户信息的增删改查；
   - 账户管理模块：实现对账户信息的增删改查，包括贷款账户和储蓄账户，以及存取款记录功能；
-  - 贷款管理模块：实现对贷款信息的正删改查，包括发放贷款，以及贷款状态的修改。
+  - 贷款管理模块：实现对贷款信息的增删改查，包括发放贷款，以及贷款状态的修改。
 - 数据库模块提供了上述信息的存储结构，并且通过存储过程，实现在数据库部分的业务统计功能。
 
 ### 2.2  系统工作流程
@@ -527,13 +527,97 @@ def statistics():
 
 ### 4.2  测试结果
 
-// 给出各个功能需求的测试用例和测试结果。
+五个模块的基本功能都是增删改查，仅以支行管理为例，展示增删改查的操作界面和返回结果。最后附上几个错误插入的示例。
 
-## 5  总结与讨论
+* 支行管理
+
+  原状态
+
+  ![files](./img/initial_status.png)
+
+  增加南京分行
+
+  ![files](./img/add_branch.png)
+
+  ![files](./img/add_result.png)
+
+  修改南京分行
+
+  ![files](./img/modify_branch.png)
+
+  ![files](./img/modify_result.png)
+
+  删除南京分行——点击删除按钮，下图为删除后结果
+
+  ![files](./img/initial_status.png)
+
+  查询支行编号为2的银行
+
+  ![files](./img/query_branch.png)
+
+  ![files](./img/query_result.png)
+
+* 员工管理
+
+  初始页面
+
+  ![files](./img/initial_staff.png)
+
+* 客户管理
+
+  初始页面
+
+  ![files](./img/initial_client.png)
+
+* 账户管理
+
+  初始页面
+
+  ![files](./img/initial_account.png)
+
+* 贷款管理
+
+  初始页面
+
+  ![files](./img/initial_loan.png)
+
+* 业务统计
+
+  初始状态：
+
+![files](/Users/Cyxzk/projects/SE-BankSys/img/initial_statistics.png)
+
+​	示例结果：
+
+![files](/Users/Cyxzk/projects/SE-BankSys/img/statistics.png)
+
+​	细节展示：
+
+![files](./img/detail.png)
+
+* 错误展示
+
+  插入一个支行编号不错在的员工
+
+  ![files](./img/error_staff.png)
+
+  结果显示
+
+  ![files](./img/error.png)
+
+  删除有关联信息的支行
+
+  ![files](./img/delete_branch.png)
+
+  有关联信息，所以无法删除
+
+  ![files](./img/delete_error.png)
+
+##5  总结与讨论
 
 // 总结本系统开发过程中的主要收获、教训。
 
-## 附录  团队介绍与工作分工
+##附录  团队介绍与工作分工
 
 - 张立夫，PB15020718：
   - 系统整体架构设计；
