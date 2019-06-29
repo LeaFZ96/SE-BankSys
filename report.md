@@ -1,4 +1,4 @@
-lab3 实验报告
+# lab3 实验报告
 
 ## 1  概述
 
@@ -26,6 +26,8 @@ lab3 实验报告
 本报告主要根据需求提供相应的体系架构设计，根据具体实现细节提供相关功能的说明，并展示最终项目效果。
 
 ## 2  总体设计
+
+![](img/index.png)
 
 ### 2.1  系统模块结构
 
@@ -173,7 +175,6 @@ def branch():
 具体设计如下：
 
 ```python
-
 @app.route('/staff', methods=['GET', 'POST'])
 def staff():
     labels = ['员工ID', '所在支行', '部门号', '员工姓名', '员工电话', '员工地址', '员工职位', '雇佣日期']
@@ -529,7 +530,7 @@ def statistics():
 
 五个模块的基本功能都是增删改查，仅以支行管理为例，展示增删改查的操作界面和返回结果。最后附上几个错误插入的示例。
 
-* 支行管理
+- 支行管理
 
   原状态
 
@@ -557,45 +558,45 @@ def statistics():
 
   ![files](./img/query_result.png)
 
-* 员工管理
+- 员工管理
 
   初始页面
 
   ![files](./img/initial_staff.png)
 
-* 客户管理
+- 客户管理
 
   初始页面
 
   ![files](./img/initial_client.png)
 
-* 账户管理
+- 账户管理
 
   初始页面
 
   ![files](./img/initial_account.png)
 
-* 贷款管理
+- 贷款管理
 
   初始页面
 
   ![files](./img/initial_loan.png)
 
-* 业务统计
+- 业务统计
 
   初始状态：
 
-![files](/Users/Cyxzk/projects/SE-BankSys/img/initial_statistics.png)
+![files](img/initial_statistics.png)
 
 ​	示例结果：
 
-![files](/Users/Cyxzk/projects/SE-BankSys/img/statistics.png)
+![files](img/statistics.png)
 
 ​	细节展示：
 
 ![files](./img/detail.png)
 
-* 错误展示
+- 错误展示
 
   插入一个支行编号不错在的员工
 
@@ -613,23 +614,25 @@ def statistics():
 
   ![files](./img/delete_error.png)
 
-##5  总结与讨论
+## 5  总结与讨论
 
-// 总结本系统开发过程中的主要收获、教训。
+通过开发一个简易但完整的银行系统，我们有了对数据库工程开发的初步了解，也对数据库的python包 (flask, flask-sqlalchemy, flask-sqlacodegen, numpy, mysql-connector, pymysql)有了使用经验。从后端的这个实验不仅让我们了解巩固数据库知识，也对软件工程以及测试有了新的认识。
 
-##附录  团队介绍与工作分工
+我们团队合作完成这个实验，它也培养了我们团队分工合作的能力。
+
+## 附录  团队介绍与工作分工
 
 - 张立夫，PB15020718：
   - 系统整体架构设计；
   - 服务端编写；
   - 前后端、后端数据库对接处理；
   - 编写实验报告主体部分；
-- 张衎，：
+- 张衎，PB15021071：
   - 数据库结构设计与实现；
   - 存储过程设计；
   - 参与后端与数据库对接处理；
   - 编写实验报告数据库部分；
-- 蔡文韬，：
+- 蔡文韬，PB15081576：
   - 前端设计与编写；
   - 参与前后端对接处理；
   - 编写实验报告结果部分；
