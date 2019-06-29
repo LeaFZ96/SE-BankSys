@@ -26,53 +26,53 @@
 
    支行表
 
-   ![files](./pics/支行表.png)
+   ![files](./pics/branch.png)
 
    员工表
 
-   ![files](./pics/支行表.png)
+   ![files](./pics/client.png)
 
    部门表
 
-   ![files](./pics/部门表.png)
+   ![files](./pics/depart.png)
 
    客户表
 
-   ![files](./pics/客户表.png)
+   ![files](./pics/client.png)
 
    储蓄账户
 
-   ![files](./pics/储蓄账户表.png)
+   ![files](./pics/savingsAccount.png)
 
    支票账户
 
-   ![files](./pics/支票账户表.png)
+   ![files](./pics/checkAccount.png)
 
    贷款表
 
-   ![files](./pics/贷款表.png)
+   ![files](./pics/loan.png)
 
    客户，支行，账户关系表
 
-   ![files](./pics/客户支行储蓄账户表.png)
+   ![files](./pics/cliBranSav.png)
 
-   ![files](./pics/客户支行支票账户表.png)
+   ![files](./pics/cliBranChe.png)
 
    贷款给客户表
 
-   ![files](./pics/贷款给客户表.png)
+   ![files](./pics/loanToClient.png)
 
    客户联系人表
 
-   ![files](./pics/客户联系人表.png)
+   ![files](./pics/clientContact.png)
 
    账户存取记录表
 
-   ![files](./pics/存取记录表.png)
+   ![files](./pics/accessRecord.png)
 
    支行管理员工表
 
-   ![files](./pics/支行管理员工表.png)
+   ![files](./pics/branchStaff.png)
 
 4. 详细设计
 
