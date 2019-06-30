@@ -489,7 +489,7 @@ def statistics():
 
 管理模块共有五个子模块：支行管理，员工管理，客户管理，账户管理和贷款管理。
 
-![](../../../../../../Mobile%20Documents/com~apple~CloudDocs/Projects/Database/lab3/SE-BankSys/img/branch.png)
+![](img/branch.png)
 
 每一个管理模块分为三个板块：
 
@@ -499,13 +499,13 @@ def statistics():
 
 
 
-![](../../../../../../Mobile%20Documents/com~apple~CloudDocs/Projects/Database/lab3/SE-BankSys/img/update.png)
+![](img/update.png)
 
 *图片：点击“更新”操作*
 
 
 
-![](../../../../../../Mobile%20Documents/com~apple~CloudDocs/Projects/Database/lab3/SE-BankSys/img/delete.png)
+![](img/delete.png)
 
 图片：点击“删除”操作
 
@@ -513,7 +513,7 @@ def statistics():
 
 **统计模块**
 
-![](../../../../../../Mobile%20Documents/com~apple~CloudDocs/Projects/Database/lab3/SE-BankSys/img/statistics.png) 
+![](img/statistics.png) 
 
 按照业务分类和统计对象（金额，用户）分为六个饼状图：
 
@@ -521,8 +521,7 @@ def statistics():
 - 贷款总金额，贷款用户数；
 
 使用饼状图的目的是展示各支行的业务相对情况，鼠标移动到图像上时会显示具体数字。
-
-![](../../../../../../Mobile%20Documents/com~apple~CloudDocs/Projects/Database/lab3/SE-BankSys/img/detail.png)
+![](img/detail.png)
 
 
 
